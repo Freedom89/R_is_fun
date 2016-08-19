@@ -15,7 +15,7 @@ knit        : slidify::knit2slides
 
 ## R Prog. Part 1
 
-
+[My linkedin profile](www.google.com)
 
 --- .class #id 
 

@@ -15,7 +15,7 @@ knit        : slidify::knit2slides
 
 ## R Prog. Part 1
 
-[My linkedin profile](www.google.com)
+
 
 --- .class #id 
 
@@ -90,7 +90,8 @@ In any programming languages, parenthesis are very important. (e.g, every bracke
  
 In R, you can do basic calculations like most scientifc computing languages such as Matlab, Python. 
 
-```{r, eval = F}
+
+```r
 1+1 #addition
 
 10-2 #substraction
@@ -106,7 +107,8 @@ In R, you can do basic calculations like most scientifc computing languages such
 
 ### R can handle strings too!
 
-```{r, eval = F}
+
+```r
 "a"
 "b"
 "this is a cat"
@@ -120,19 +122,24 @@ In R, you can do basic calculations like most scientifc computing languages such
 
 in R, you can assign values / calculations to words with the __"<-"__ or __"="__ symbol
 
-```{r , eval = T}
+
+```r
 one <- 1
 two <- 2
 three <- 3
 cat <- "cat"
 dog <- "dog"
-
 ```
 
 you can print them out by typing them or with the __<u>print</u>__ command
 
-```{r}
+
+```r
 print(cat)
+```
+
+```
+## [1] "cat"
 ```
 
 [Back To Contents](#/3)
@@ -143,7 +150,8 @@ print(cat)
 
 You can perform calculations with Variables, for example:
 
-```{r, eval = F}
+
+```r
 one+one
 
 two/three
@@ -153,17 +161,26 @@ three*two + one
 
 However, if you have not defined the variable, an error is returned
 
-```{r}
+
+```r
 four
 ```
 
+```
+## Error in eval(expr, envir, enclos): object 'four' not found
+```
+
 You can also assign new variables to these calculations
-```{r}
+
+```r
 four = two*two
 four = three+one
 
 print(four)
+```
 
+```
+## [1] 4
 ```
 
 [Back To Contents](#/3)
@@ -180,18 +197,28 @@ You can write conditions to check on variables and other kind of objects such as
 
 The <q>if statement</q> allows you to check for a condition, and the condition must return <u>TRUE</u> or <u>FALSE</u>. Example of conditions can be found below:
 
-```{r}
+
+```r
 animal <- "cat"
 print(animal == "cat")
+```
+
+```
+## [1] TRUE
 ```
 
 There are other functions (more on that later) and conditions symbol, such as <q>!=</q> (not equal), <q> >= </q> (greater than) as well as <q><=</q> (smaller than)
 
 ##### Examples:
 
-```{r}
+
+```r
 one <- 1 ; two <-2 
 two <= one
+```
+
+```
+## [1] FALSE
 ```
 
 [Back To Contents](#/3)
@@ -204,12 +231,16 @@ Here is an example of an if-statement. <q>(animal == "cat")</q> is the condition
 
 In addition, notice the curly brackets which are the parenthesis. 
 
-```{r}
+
+```r
 animal <- "cat"
 if(animal == "cat"){
   print("your animal is a cat!")
 }
+```
 
+```
+## [1] "your animal is a cat!"
 ```
 
 #### Exercise:
@@ -230,25 +261,29 @@ Write another if statement that if the animal is not a dog, print the statement 
 ## Answer for Question 1
 
 #### Question 1.1 Solution
-```{r}
+
+```r
 animal <- "cat"
 
 if(animal == "bird"){
   print("your animal is a bird")
 }
-
 ```
 
 Nothing is printed out! 
 
 #### Question 1.2 Solution
-```{r}
+
+```r
 animal <- "cat"
 
 if(animal != "dog"){
   print("your animal is not a dog")
 }
+```
 
+```
+## [1] "your animal is not a dog"
 ```
 
 What if for question 1.1 you wanted to follow up with the if statement and also print out <q> "your animal is not a bird" </q> ?
@@ -263,7 +298,8 @@ What if for question 1.1 you wanted to follow up with the if statement and also 
 
 Example: 
 
-```{r}
+
+```r
 animal <- "cat"
 
 if(animal == "bird"){
@@ -271,12 +307,16 @@ if(animal == "bird"){
 }else{
   print("your animal is not a bird")
 }
+```
 
+```
+## [1] "your animal is not a bird"
 ```
 
 What if you have multiple conditions you want to check? One way to do it is to write multiple else-if statements. 
 
-```{r}
+
+```r
 animal <- "cat"
 
 if(animal == "bird"){
@@ -286,7 +326,10 @@ if(animal == "bird"){
 }else{
   print("your animal is not a bird or dog")
 }
+```
 
+```
+## [1] "your animal is not a bird or dog"
 ```
 
 [Back To Contents](#/3)
@@ -305,13 +348,16 @@ try the command <q>?ifelse</q> and read the documentation now.
 
 Heres an additional example:
 
-```{r}
 
+```r
 first_digit <- 2
 second_digit <- 4
 
 ifelse(first_digit <= second_digit, "first digit is bigger", "second digit is bigger")
+```
 
+```
+## [1] "first digit is bigger"
 ```
 
 
@@ -326,19 +372,37 @@ You should notice by now that in all of these statements all require a condition
 
 You can combine these conditions with additional and statements or assign them to variables. 
 
-```{r}
+
+```r
 digit1 <- 1 ;digit2 <- 2 ; digit3 <-3
 condition1 <- digit2 >= digit1
 condition2 <- digit3 <= digit2
 
 print(condition1 & condition2 ) #TRUE AND FALSE = FALSE
-print(condition1 || condition2) #TRUE OR FALSE = TRUE 
+```
 
+```
+## [1] FALSE
+```
+
+```r
+print(condition1 || condition2) #TRUE OR FALSE = TRUE 
+```
+
+```
+## [1] TRUE
+```
+
+```r
 #you can then stack them together. 
 condition3 <- condition1 || condition2
 if(condition3){
   #code here
 }
+```
+
+```
+## NULL
 ```
 
 [Back To Contents](#/3)
@@ -351,13 +415,15 @@ In R, sometimes you want to store multiple values, such as observations of a per
 
 #### Example:
 
-```{r}
+
+```r
 random_numbers <- c(1,6,3,1,8,5,7,9,0,2)
 ```
 
 You can perform math operations on vectors, try them out! 
 
-```{r, eval = F}
+
+```r
 sum(random_numbers) #find the sum
 mean(random_numbers) #find the average
 mode(random_numbers) #find the most freq. item
@@ -378,17 +444,41 @@ There is alot more functionality avaliable in vectors - but usually you will goo
 Vectors have some methods, such as finding out the length of the vector with <q> length(vector)</q>.
 You can also index specific part of the vectors with square brackets. Multiple elements can be extracted out with either a another vector as follows:
 
-```{r}
+
+```r
 random_numbers[1] #extract the first element
+```
+
+```
+## [1] 1
+```
+
+```r
 random_numbers[c(4,6)] #extract the 4th and 6th element
+```
+
+```
+## [1] 1 5
 ```
 
 You can also use a TRUE/FALSE vector 
 
-```{r}
+
+```r
 greater_than_two <- random_numbers > 2
 greater_than_two
+```
+
+```
+##  [1] FALSE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE FALSE FALSE
+```
+
+```r
 random_numbers[greater_than_two]
+```
+
+```
+## [1] 6 3 8 5 7 9
 ```
 
 [Back To Contents](#/3)
@@ -399,18 +489,32 @@ random_numbers[greater_than_two]
 
 One limitation with vectors is that you can only store individual elements in them. Suppose that you want to store 2 different vectors together:
 
-```{r}
+
+```r
 a <- c(1,2,3)
 b <- c(4,5,6)
 new_vect <- c(a,b)
 print(new_vect)
 ```
 
+```
+## [1] 1 2 3 4 5 6
+```
+
 Lists overcome this problem:
 
-```{r}
+
+```r
 new_list <- list(a,b)
 print(new_list)
+```
+
+```
+## [[1]]
+## [1] 1 2 3
+## 
+## [[2]]
+## [1] 4 5 6
 ```
 
 [Back To Contents](#/3)
@@ -423,15 +527,25 @@ Lists can be indexed in the same way with vectors however they need double squar
 
 #### Example:
 
-```{r}
+
+```r
 new_list[[c(1)]]
+```
+
+```
+## [1] 1 2 3
 ```
 
 In Lists, it is also possible to assign names and index them by their names. For example: 
 
-```{r}
+
+```r
 new_list2 <- list(first_A=a,second_B=b)
 new_list2[["first_A"]]
+```
+
+```
+## [1] 1 2 3
 ```
 
 
@@ -444,20 +558,39 @@ In list, indexing multiple elements is slightly different.
 
 #### Example
 
-```{r}
+
+```r
 new_list[c(1,2)] 
+```
+
+```
+## [[1]]
+## [1] 1 2 3
+## 
+## [[2]]
+## [1] 4 5 6
 ```
 
 Using double square results would mean that you are taking sub-elements. 
 
-```{r}
+
+```r
 new_list[[c(1,2)]] #taking the first element, then take the second element. 
+```
+
+```
+## [1] 2
 ```
 
 Usually to take sub-elements, you would extract out each element and use indexing appropriate for that class. 
 
-```{r}
+
+```r
 new_list[[1]][2]
+```
+
+```
+## [1] 2
 ```
 
 [Back To Contents](#/3)
