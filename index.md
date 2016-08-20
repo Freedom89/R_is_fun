@@ -15,7 +15,12 @@ knit        : slidify::knit2slides
 
 ## R Prog. Part 1
 
-[My linkedin profile](www.google.com)
+
+<img src = "./assets/img/GINSlogo.png" width = 400px>
+
+<br>
+
+[Jump To Contents](#/3)
 
 --- .class #id 
 
@@ -23,6 +28,13 @@ knit        : slidify::knit2slides
 
 .fragment <q> R is an open source langauge with multiple libraries avaliable. It is a widely used programming langauge for various purposes, such as data wrangling, visualization, modeling and even building this deck! </q>
 
+<br>
+
+.fragment RStudio and R 3.3.x have been risk-assessed for local computer usage including the packages that are available on CRAN
+
+<br>
+
+.fragment Some resources (including Shiny Server Pro etc) on how Merck uses R can be found here: https://share.merck.com/pages/viewpage.action?pageId=93356897
 
 --- &vertical
 
@@ -189,7 +201,7 @@ print(four)
 
 ## if-else statements
 
-You can write conditions to check on variables and other kind of objects such as lists, matrices, dataframes etc. Recall that parenthesis is important, watch out for your brackets! 
+You can write conditions to check on variables and other kind of variables such as lists, matrices, dataframes etc. Recall that parenthesis is important, watch out for your brackets! 
 
 <br> 
 
@@ -582,15 +594,15 @@ new_list[[c(1,2)]] #taking the first element, then take the second element.
 ## [1] 2
 ```
 
-Usually to take sub-elements, you would extract out each element and use indexing appropriate for that class. 
+Usually to take sub-elements, one would extract out each element and use appropriate indexing for that class. In this example the class happens to be a vector. 
 
 
 ```r
-new_list[[1]][2]
+new_list[[1]][c(1,2)]
 ```
 
 ```
-## [1] 2
+## [1] 1 2
 ```
 
 [Back To Contents](#/3)
@@ -606,7 +618,7 @@ Do note that with the introduction of dataframes and the dplyr package (part2), 
 
 <br> 
 
-Nevertheless, Lists are still very important and could be extremly useful as they can store many different objects. Infact, <b><u>they can store about anything such as models, dataframes, functions</b></u>. They can also be used for [functional programming](http://adv-r.had.co.nz/Functional-programming.html) which is considered an advance topic.
+Nevertheless, Lists are still very important and could be extremly useful as they can store many different variables. Infact, <b><u>they can store about anything such as models, dataframes, functions</b></u>. They can also be used for [functional programming](http://adv-r.had.co.nz/Functional-programming.html) which is considered an advance topic.
 
 [Back To Contents](#/3)
 
@@ -614,7 +626,211 @@ Nevertheless, Lists are still very important and could be extremly useful as the
 
 ## Functions
 
-Functions
+.fragment If you are familar with programming, you will understand that functions are very important. 
+
+<br>
+
+.fragment For those who are not familar, functions are essentially methods you can use to apply to variables and some output. 
+
+<br>
+
+.fragment In other words, there are sometimes you need to apply the same code multiple times, this is where functions are useful as it (1) reduces the code you need , (2) readability, (3) saves time
+
+<br>
+
+[Back To Contents](#/3)
+
+***
+
+## Functions (Example)
+
+For instance, you need to take the square of a variable, square it, substract by itself, and add 8 to it. 
+
+
+```r
+x <- 2 
+x <- x^2- x + 8 
+x
+```
+
+```
+## [1] 10
+```
+
+Suppose you need to do it multiple times, this might be a better approach. 
+
+
+```r
+x<-2
+function_example <- function(x){
+  x <- x^2-x+8
+  return(x)
+}
+x <- function_example(x)
+```
+
+
+[Back To Contents](#/3)
+
+***
+
+## Functions (Details)
+
+As seen in the previous slides, functions are essentially codes that you can re-use without explicitly typing them out. A function has to contain 3 parts, declaration of variables / function name, the body, and the output which is the return function. 
+
+<br>
+
+In the earlier example, <q>function_example</q> is the function name, <q>x</q> is the input variable, while <q> x <- x^2 - x+8</q> is the body, and <q>return(x)</q> is the code.
+
+<br>
+
+Heres another (trivial) example, suppose we want to two numbers and multiply them together with a function:
+
+
+```r
+multiply_two_numbers <- function(x,y){
+  new_number <- x*y
+  return(x*y)
+}
+```
+
+[Back To Contents](#/3)
+
+***
+## Functions (Summary)
+
+The code below shows the outline of a function:
+
+<br>
+
+
+```r
+<function_name> <- function(input_1,input_2, ... , input_n){ #notice the brackets
+  #your code here
+        .
+        .
+        .
+  return(<return the variables you require>)
+}
+```
+
+[Back To Contents](#/3)
+
+***
+
+## Functions (Questions)
+
+<br>
+
+#### Question 2.1
+
+Write a function that takes in a string variable, checks whether it is a dog or a cat, otherwise return the string <u> "it is neither a dog nor a cat" </u>
+
+<br>
+
+#### Question 2.2 
+
+Write a funtion that takes in a vector of numerical values, and return a list of results computing the length,max, min, and mean. 
+
+[Back To Contents](#/3)
+
+***
+
+## Functions (Answers)
+
+#### Question 2.1
+
+
+```r
+test_cat_dog <- function(animal){
+  
+  if(animal == "dog"){
+    return("your animal is a dog")
+    
+  }else if(animal == "cat"){
+    return("your animal is a cat")
+    
+  }else{
+    return("your animal is neither a cat nor a dog")
+  }
+}
+
+test_cat_dog("dog")
+```
+
+```
+## [1] "your animal is a dog"
+```
+
+```r
+test_cat_dog("bird")
+```
+
+```
+## [1] "your animal is neither a cat nor a dog"
+```
+
+<br>
+
+[Back To Contents](#/3)
+
+***
+
+## Functions (Answers)
+
+#### Question 2.2
+
+
+```r
+summary_stats <- function(x){
+  length_x <- length(x)
+  mean_x   <- mean(x)
+  min_x    <- min(x)
+  max_x    <- max(x)
+  
+  return_list <- list(length = length_x, mean = mean_x, min = min_x, max = max_x)
+  
+  return(return_list)
+}
+
+summary_stats(c(1,2,3,4,5))
+```
+
+```
+## $length
+## [1] 5
+## 
+## $mean
+## [1] 3
+## 
+## $min
+## [1] 1
+## 
+## $max
+## [1] 5
+```
+
+<br>
+
+[Back To Contents](#/3)
+
+***
+
+## Functions (Further comments)
+
+<br>
+
+.fragment There are other features about functions in R such as inheritance, functional programming or specifiying default values which are out of scope of this course. 
+
+<br>
+
+.fragment To recap, functions are a extremely useful way to write neater and shorter codes. As a rule of thumb, if you need to write the same code twice or more, it is probably a good idea to write a function for it. 
+
+<br>
+
+.fragment Sometimes, you would be using functions that are built by others in the form of packages(#/11), it is thus important that you know how to write / read / call functions to help your data analysis in R! 
+
+<br>
 
 [Back To Contents](#/3)
 
@@ -622,7 +838,254 @@ Functions
 
 ## Loops
 
-Loops
+.fragment There are times when you need to do some task over and over again - in this case, you should think of loops! 
+
+<br>
+
+.fragment There are two kind of loops - <q>for</q> and <q>while</q> loops.
+
+<br>
+
+.fragment  <q>for</q> loops runs within a fixed set and perform some tasks for you. More examples will be shown later. 
+
+<br>
+
+.fragment <q>while</q> loops runs until a certain condition is satisified. 
+
+[Back To Contents](#/3)
+
+***
+
+## For Loops
+
+In <q>for</q> loops, the structure is as follows:
+
+
+```r
+for(i in 1:10){ #do something for ten times 
+  #do something
+}
+```
+
+It also possible to specify a vector to 'loop' through :
+
+
+```r
+student_names <- c("Mary","John","Peter","Berry")
+for(i in student_names){
+  print(i)
+  #code to do task related to each student's name. 
+}
+```
+
+```
+## [1] "Mary"
+## [1] "John"
+## [1] "Peter"
+## [1] "Berry"
+```
+
+<br>
+
+[Back To Contents](#/3)
+
+***
+
+## For Loops (Questions) 
+
+#### Question 3.1
+
+Specify a vector of 1:100 and using a for loop, compute the sum of all numbers in this range that are divisible by 3. 
+
+Hint1: to find the remainder of two numbers can be found with the modulo function in R, e.g 4%%2 = 0, while 4%%3 = 1. 
+
+Hint2: you can specify a variable to keep track of the running sum of variables. 
+
+
+```r
+numbers <- 1:100
+running_sum <- 0 
+for(i in numbers){
+  running_sum <- running_sum + i  #keeping track of the total sum.
+}
+print(running_sum)
+```
+
+```
+## [1] 5050
+```
+
+<br>
+
+[Back To Contents](#/3)
+
+***
+
+## While Loops
+
+While loops is generally used when you want to achieve a task and is uncertain about the steps you need to take. The sturcture is as follows:
+
+```r
+condition <- TRUE
+while(condition){ #notice the brackets
+  #do some stuff 
+  #if the condition is fufilled, change it to FALSE and the while loop stops running. 
+  }
+```
+
+As an example: 
+
+```r
+i=1 ; condition <- TRUE
+while(condition){
+  print(i) ; i<- i+1
+  if(i == 3){
+    condition<-FALSE
+  }
+}
+```
+
+```
+## [1] 1
+## [1] 2
+```
+
+Becareful with while loops as you might encounter infinite loops - the loop will run forever since the condition will never be false! 
+
+[Back To Contents](#/3)
+
+***
+
+## While Loops (Question)
+
+#### Question3.2
+
+Using a while loop, find out how many numbers is required to have a running sum that is greater than 500 with numbers that are divisible by three.
+
+Hint:
+
+
+```r
+sum_required <- 500
+condition <- TRUE
+i <- 1 #start from 1
+running_sum <- 0
+while(condition){
+  #check if i is divisble by three
+  #if yes, running_sum <- running_sum+i 
+  #check if running_sum exceeds sum_required
+  i <- i+1 #add 1 to "i" to start the next interation. 
+}
+```
+
+<br>
+
+[Back To Contents](#/3)
+
+***
+
+## While Loops (Answer)
+
+#### Question3.2
+
+Answer:
+
+
+```r
+sum_required <- 500
+condition <- TRUE
+i <- 1 #start from 1
+running_sum <- 0
+while(condition){
+  if(i %% 3 == 0 ){
+    running_sum <- running_sum +i
+  }
+  if(running_sum >= sum_required){
+    condition <- FALSE
+  }
+  i<- i+1
+}
+print(i)
+```
+
+```
+## [1] 55
+```
+
+<br>
+
+Bonus Challenge: how many numbers in total were used to achieve a sum exceeding 500 with numbers that are 
+
+[Back To Contents](#/3)
+
+***
+
+## While Loop (Bonus Challenge)
+
+
+```r
+sum_required <- 500
+condition <- TRUE
+i <- 1 #start from 1
+running_sum <- 0
+counter <- 0 
+while(condition){
+  if(i %% 3 == 0 ){
+    running_sum <- running_sum +i
+    counter <- counter+1 #just add in a counter here to see when is this condition triggered. 
+  }
+  if(running_sum >= sum_required){
+    condition <- FALSE
+  }
+  i<- i+1
+}
+print(counter)
+```
+
+```
+## [1] 18
+```
+
+<br>
+
+[Back To Contents](#/3)
+
+***
+
+## Loops (cont)
+
+There are two additional functionality that are useful - <b><u> break </b></u> and <b><u> next </b></u>.
+
+The break commands basically stops the loops from running while the next command simply moves on to the next iteration of the loop. 
+
+##### "break" command
+
+```r
+for( i in 1:4){
+  if(i == 3){break}
+  print(i)
+}
+```
+
+```
+## [1] 1
+## [1] 2
+```
+
+#### "next" command
+
+```r
+for( i in 1:4){
+  if(i == 3){next}
+  print(i)
+}
+```
+
+```
+## [1] 1
+## [1] 2
+## [1] 4
+```
 
 [Back To Contents](#/3)
 
@@ -630,7 +1093,24 @@ Loops
 
 ## Installing packages
 
-Packages
+R is a widely contributed by people all over the world, there are currently 8992 packagess avaliable on [CRAN](https://cran.r-project.org/) not accounting for other libraries on github. 
+
+<br>
+
+To see the libraries avaliable by [date](https://cran.r-project.org/web/packages/available_packages_by_date.html) or by [name](https://cran.r-project.org/web/packages/available_packages_by_name.html).
+
+<br>
+
+In the next part we will be playing around with dataframes, please run the following codes in your console.
+
+
+```r
+install.packages("dplyr")
+install.packages("tidyr")
+install.packages("packrat")
+```
+
+<br>
 
 [Back To Contents](#/3)
 

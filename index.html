@@ -20,12 +20,24 @@
     <div class="slides">
       <section class='' data-state='' id='slide-1'>
   <h2>R Prog. Part 1</h2>
-  <p><a href="www.google.com">My linkedin profile</a></p>
+  <p><img src = "./assets/img/GINSlogo.png" width = 400px></p>
+
+<p><br></p>
+
+<p><a href="#/3">Jump To Contents</a></p>
 
 </section>
 <section class='class' data-state='' id='id'>
   <h2>The R programming</h2>
   <p class='fragment'><q> R is an open source langauge with multiple libraries avaliable. It is a widely used programming langauge for various purposes, such as data wrangling, visualization, modeling and even building this deck! </q></p>
+
+<p><br></p>
+
+<p class='fragment'>RStudio and R 3.3.x have been risk-assessed for local computer usage including the packages that are available on CRAN</p>
+
+<p><br></p>
+
+<p class='fragment'>Some resources (including Shiny Server Pro etc) on how Merck uses R can be found here: <a href="https://share.merck.com/pages/viewpage.action?pageId=93356897">https://share.merck.com/pages/viewpage.action?pageId=93356897</a></p>
 
 </section>
 <section>
@@ -183,7 +195,7 @@ print(four)
 <section>
    <section class='' data-state=''>
     <h2>if-else statements</h2>
-    <p>You can write conditions to check on variables and other kind of objects such as lists, matrices, dataframes etc. Recall that parenthesis is important, watch out for your brackets! </p>
+    <p>You can write conditions to check on variables and other kind of variables such as lists, matrices, dataframes etc. Recall that parenthesis is important, watch out for your brackets! </p>
 
 <p><br> </p>
 
@@ -547,12 +559,12 @@ new_list2[[&quot;first_A&quot;]]
 <pre><code>## [1] 2
 </code></pre>
 
-<p>Usually to take sub-elements, you would extract out each element and use indexing appropriate for that class. </p>
+<p>Usually to take sub-elements, one would extract out each element and use appropriate indexing for that class. In this example the class happens to be a vector. </p>
 
-<pre><code class="r">new_list[[1]][2]
+<pre><code class="r">new_list[[1]][c(1,2)]
 </code></pre>
 
-<pre><code>## [1] 2
+<pre><code>## [1] 1 2
 </code></pre>
 
 <p><a href="#/3">Back To Contents</a></p>
@@ -572,7 +584,7 @@ new_list2[[&quot;first_A&quot;]]
 
 <p><br> </p>
 
-<p>Nevertheless, Lists are still very important and could be extremly useful as they can store many different objects. Infact, <b><u>they can store about anything such as models, dataframes, functions</b></u>. They can also be used for <a href="http://adv-r.had.co.nz/Functional-programming.html">functional programming</a> which is considered an advance topic.</p>
+<p>Nevertheless, Lists are still very important and could be extremly useful as they can store many different variables. Infact, <b><u>they can store about anything such as models, dataframes, functions</b></u>. They can also be used for <a href="http://adv-r.had.co.nz/Functional-programming.html">functional programming</a> which is considered an advance topic.</p>
 
 <p><a href="#/3">Back To Contents</a></p>
 
@@ -584,7 +596,215 @@ new_list2[[&quot;first_A&quot;]]
 <section>
    <section class='' data-state=''>
     <h2>Functions</h2>
-    <p>Functions</p>
+    <p class='fragment'>If you are familar with programming, you will understand that functions are very important. </p>
+
+<p><br></p>
+
+<p class='fragment'>For those who are not familar, functions are essentially methods you can use to apply to variables and some output. </p>
+
+<p><br></p>
+
+<p class='fragment'>In other words, there are sometimes you need to apply the same code multiple times, this is where functions are useful as it (1) reduces the code you need , (2) readability, (3) saves time</p>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Functions (Example)</h2>
+
+<p>For instance, you need to take the square of a variable, square it, substract by itself, and add 8 to it. </p>
+
+<pre><code class="r">x &lt;- 2 
+x &lt;- x^2- x + 8 
+x
+</code></pre>
+
+<pre><code>## [1] 10
+</code></pre>
+
+<p>Suppose you need to do it multiple times, this might be a better approach. </p>
+
+<pre><code class="r">x&lt;-2
+function_example &lt;- function(x){
+  x &lt;- x^2-x+8
+  return(x)
+}
+x &lt;- function_example(x)
+</code></pre>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Functions (Details)</h2>
+
+<p>As seen in the previous slides, functions are essentially codes that you can re-use without explicitly typing them out. A function has to contain 3 parts, declaration of variables / function name, the body, and the output which is the return function. </p>
+
+<p><br></p>
+
+<p>In the earlier example, <q>function_example</q> is the function name, <q>x</q> is the input variable, while <q> x &lt;- x<sup>2</sup> - x+8</q> is the body, and <q>return(x)</q> is the code.</p>
+
+<p><br></p>
+
+<p>Heres another (trivial) example, suppose we want to two numbers and multiply them together with a function:</p>
+
+<pre><code class="r">multiply_two_numbers &lt;- function(x,y){
+  new_number &lt;- x*y
+  return(x*y)
+}
+</code></pre>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Functions (Summary)</h2>
+
+<p>The code below shows the outline of a function:</p>
+
+<p><br></p>
+
+<pre><code class="r">&lt;function_name&gt; &lt;- function(input_1,input_2, ... , input_n){ #notice the brackets
+  #your code here
+        .
+        .
+        .
+  return(&lt;return the variables you require&gt;)
+}
+</code></pre>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Functions (Questions)</h2>
+
+<p><br></p>
+
+<h4>Question 2.1</h4>
+
+<p>Write a function that takes in a string variable, checks whether it is a dog or a cat, otherwise return the string <u> &quot;it is neither a dog nor a cat&quot; </u></p>
+
+<p><br></p>
+
+<h4>Question 2.2</h4>
+
+<p>Write a funtion that takes in a vector of numerical values, and return a list of results computing the length,max, min, and mean. </p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Functions (Answers)</h2>
+
+<h4>Question 2.1</h4>
+
+<pre><code class="r">test_cat_dog &lt;- function(animal){
+
+  if(animal == &quot;dog&quot;){
+    return(&quot;your animal is a dog&quot;)
+
+  }else if(animal == &quot;cat&quot;){
+    return(&quot;your animal is a cat&quot;)
+
+  }else{
+    return(&quot;your animal is neither a cat nor a dog&quot;)
+  }
+}
+
+test_cat_dog(&quot;dog&quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;your animal is a dog&quot;
+</code></pre>
+
+<pre><code class="r">test_cat_dog(&quot;bird&quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;your animal is neither a cat nor a dog&quot;
+</code></pre>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Functions (Answers)</h2>
+
+<h4>Question 2.2</h4>
+
+<pre><code class="r">summary_stats &lt;- function(x){
+  length_x &lt;- length(x)
+  mean_x   &lt;- mean(x)
+  min_x    &lt;- min(x)
+  max_x    &lt;- max(x)
+
+  return_list &lt;- list(length = length_x, mean = mean_x, min = min_x, max = max_x)
+
+  return(return_list)
+}
+
+summary_stats(c(1,2,3,4,5))
+</code></pre>
+
+<pre><code>## $length
+## [1] 5
+## 
+## $mean
+## [1] 3
+## 
+## $min
+## [1] 1
+## 
+## $max
+## [1] 5
+</code></pre>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Functions (Further comments)</h2>
+
+<p><br></p>
+
+<p class='fragment'>There are other features about functions in R such as inheritance, functional programming or specifiying default values which are out of scope of this course. </p>
+
+<p><br></p>
+
+<p class='fragment'>To recap, functions are a extremely useful way to write neater and shorter codes. As a rule of thumb, if you need to write the same code twice or more, it is probably a good idea to write a function for it. </p>
+
+<p><br></p>
+
+<p class='fragment'>Sometimes, you would be using functions that are built by others in the form of packages(#/11), it is thus important that you know how to write / read / call functions to help your data analysis in R! </p>
+
+<p><br></p>
 
 <p><a href="#/3">Back To Contents</a></p>
 
@@ -596,7 +816,252 @@ new_list2[[&quot;first_A&quot;]]
 <section>
    <section class='' data-state=''>
     <h2>Loops</h2>
-    <p>Loops</p>
+    <p class='fragment'>There are times when you need to do some task over and over again - in this case, you should think of loops! </p>
+
+<p><br></p>
+
+<p class='fragment'>There are two kind of loops - <q>for</q> and <q>while</q> loops.</p>
+
+<p><br></p>
+
+<p class='fragment '><q>for</q> loops runs within a fixed set and perform some tasks for you. More examples will be shown later. </p>
+
+<p><br></p>
+
+<p class='fragment'><q>while</q> loops runs until a certain condition is satisified. </p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>For Loops</h2>
+
+<p>In <q>for</q> loops, the structure is as follows:</p>
+
+<pre><code class="r">for(i in 1:10){ #do something for ten times 
+  #do something
+}
+</code></pre>
+
+<p>It also possible to specify a vector to &#39;loop&#39; through :</p>
+
+<pre><code class="r">student_names &lt;- c(&quot;Mary&quot;,&quot;John&quot;,&quot;Peter&quot;,&quot;Berry&quot;)
+for(i in student_names){
+  print(i)
+  #code to do task related to each student&#39;s name. 
+}
+</code></pre>
+
+<pre><code>## [1] &quot;Mary&quot;
+## [1] &quot;John&quot;
+## [1] &quot;Peter&quot;
+## [1] &quot;Berry&quot;
+</code></pre>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>For Loops (Questions)</h2>
+
+<h4>Question 3.1</h4>
+
+<p>Specify a vector of 1:100 and using a for loop, compute the sum of all numbers in this range that are divisible by 3. </p>
+
+<p>Hint1: to find the remainder of two numbers can be found with the modulo function in R, e.g 4%%2 = 0, while 4%%3 = 1. </p>
+
+<p>Hint2: you can specify a variable to keep track of the running sum of variables. </p>
+
+<pre><code class="r">numbers &lt;- 1:100
+running_sum &lt;- 0 
+for(i in numbers){
+  running_sum &lt;- running_sum + i  #keeping track of the total sum.
+}
+print(running_sum)
+</code></pre>
+
+<pre><code>## [1] 5050
+</code></pre>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>While Loops</h2>
+
+<p>While loops is generally used when you want to achieve a task and is uncertain about the steps you need to take. The sturcture is as follows:</p>
+
+<pre><code class="r">condition &lt;- TRUE
+while(condition){ #notice the brackets
+  #do some stuff 
+  #if the condition is fufilled, change it to FALSE and the while loop stops running. 
+  }
+</code></pre>
+
+<p>As an example: </p>
+
+<pre><code class="r">i=1 ; condition &lt;- TRUE
+while(condition){
+  print(i) ; i&lt;- i+1
+  if(i == 3){
+    condition&lt;-FALSE
+  }
+}
+</code></pre>
+
+<pre><code>## [1] 1
+## [1] 2
+</code></pre>
+
+<p>Becareful with while loops as you might encounter infinite loops - the loop will run forever since the condition will never be false! </p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>While Loops (Question)</h2>
+
+<h4>Question3.2</h4>
+
+<p>Using a while loop, find out how many numbers is required to have a running sum that is greater than 500 with numbers that are divisible by three.</p>
+
+<p>Hint:</p>
+
+<pre><code class="r">sum_required &lt;- 500
+condition &lt;- TRUE
+i &lt;- 1 #start from 1
+running_sum &lt;- 0
+while(condition){
+  #check if i is divisble by three
+  #if yes, running_sum &lt;- running_sum+i 
+  #check if running_sum exceeds sum_required
+  i &lt;- i+1 #add 1 to &quot;i&quot; to start the next interation. 
+}
+</code></pre>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>While Loops (Answer)</h2>
+
+<h4>Question3.2</h4>
+
+<p>Answer:</p>
+
+<pre><code class="r">sum_required &lt;- 500
+condition &lt;- TRUE
+i &lt;- 1 #start from 1
+running_sum &lt;- 0
+while(condition){
+  if(i %% 3 == 0 ){
+    running_sum &lt;- running_sum +i
+  }
+  if(running_sum &gt;= sum_required){
+    condition &lt;- FALSE
+  }
+  i&lt;- i+1
+}
+print(i)
+</code></pre>
+
+<pre><code>## [1] 55
+</code></pre>
+
+<p><br></p>
+
+<p>Bonus Challenge: how many numbers in total were used to achieve a sum exceeding 500 with numbers that are </p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>While Loop (Bonus Challenge)</h2>
+
+<pre><code class="r">sum_required &lt;- 500
+condition &lt;- TRUE
+i &lt;- 1 #start from 1
+running_sum &lt;- 0
+counter &lt;- 0 
+while(condition){
+  if(i %% 3 == 0 ){
+    running_sum &lt;- running_sum +i
+    counter &lt;- counter+1 #just add in a counter here to see when is this condition triggered. 
+  }
+  if(running_sum &gt;= sum_required){
+    condition &lt;- FALSE
+  }
+  i&lt;- i+1
+}
+print(counter)
+</code></pre>
+
+<pre><code>## [1] 18
+</code></pre>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Loops (cont)</h2>
+
+<p>There are two additional functionality that are useful - <b><u> break </b></u> and <b><u> next </b></u>.</p>
+
+<p>The break commands basically stops the loops from running while the next command simply moves on to the next iteration of the loop. </p>
+
+<h5>&quot;break&quot; command</h5>
+
+<pre><code class="r">for( i in 1:4){
+  if(i == 3){break}
+  print(i)
+}
+</code></pre>
+
+<pre><code>## [1] 1
+## [1] 2
+</code></pre>
+
+<h4>&quot;next&quot; command</h4>
+
+<pre><code class="r">for( i in 1:4){
+  if(i == 3){next}
+  print(i)
+}
+</code></pre>
+
+<pre><code>## [1] 1
+## [1] 2
+## [1] 4
+</code></pre>
 
 <p><a href="#/3">Back To Contents</a></p>
 
@@ -608,7 +1073,22 @@ new_list2[[&quot;first_A&quot;]]
 <section>
    <section class='' data-state=''>
     <h2>Installing packages</h2>
-    <p>Packages</p>
+    <p>R is a widely contributed by people all over the world, there are currently 8992 packagess avaliable on <a href="https://cran.r-project.org/">CRAN</a> not accounting for other libraries on github. </p>
+
+<p><br></p>
+
+<p>To see the libraries avaliable by <a href="https://cran.r-project.org/web/packages/available_packages_by_date.html">date</a> or by <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html">name</a>.</p>
+
+<p><br></p>
+
+<p>In the next part we will be playing around with dataframes, please run the following codes in your console.</p>
+
+<pre><code class="r">install.packages(&quot;dplyr&quot;)
+install.packages(&quot;tidyr&quot;)
+install.packages(&quot;packrat&quot;)
+</code></pre>
+
+<p><br></p>
 
 <p><a href="#/3">Back To Contents</a></p>
 
