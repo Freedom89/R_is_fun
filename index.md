@@ -380,8 +380,6 @@ ifelse(first_digit <= second_digit, "first digit is bigger", "second digit is bi
 
 You should notice by now that in all of these statements all require a conditional statement that turns either <i> TRUE </i> or <i> FALSE </i>.
 
-<br>
-
 You can combine these conditions with additional and statements or assign them to variables. 
 
 
