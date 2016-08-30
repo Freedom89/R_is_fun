@@ -13,7 +13,7 @@ mode        : selfcontained # {standalone, draft,selfcontained}
 knit        : slidify::knit2slides
 ---
 
-## R Prog. Part 1
+## R Programming Slides
 
 <br>
 
