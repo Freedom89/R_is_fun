@@ -15,6 +15,8 @@ knit        : slidify::knit2slides
 
 ## R Prog. Part 2
 
+<br>
+
 Done by: Low yi Xiang
 
 <br>

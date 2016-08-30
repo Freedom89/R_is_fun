@@ -15,14 +15,15 @@ knit        : slidify::knit2slides
 
 ## R Prog. Part 1
 
+<br>
 
 Done by: Low yi Xiang
 
 <br>
 
-<br>
 [Linkedin Profile](https://www.linkedin.com/in/yi-xiang-low-b349137b)
 
+<br>
 
 [Jump To Contents](#/3)
 

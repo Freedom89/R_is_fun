@@ -17,9 +17,12 @@ knit        : slidify::knit2slides
 
 
 Done by: Low yi Xiang
+
 <br>
 
 [Linkedin Profile](https://www.linkedin.com/in/yi-xiang-low-b349137b)
+
+<br>
 
 [Jump To Contents](#/3)
 
