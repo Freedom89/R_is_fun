@@ -1,0 +1,2046 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Teaching R</title>
+  <meta name="description" content="">
+  <meta name="author" content="Low Yi Xiang">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="stylesheet" href="libraries/frameworks/revealjs/css/reveal.min.css">
+  <link rel="stylesheet" href="libraries/frameworks/revealjs/css/theme/night.css" id="theme">
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/dark.css" id="theme">
+  <!--[if lt IE 9]>
+  <script src="lib/js/html5shiv.js"></script>
+  <![endif]-->  <link rel="stylesheet" href = "assets/css/ribbons.css">
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section class='' data-state='' id='slide-1'>
+  <h2>R Prog. Part 2</h2>
+  <p><img src = "./assets/img/GINSlogo.png" width = 400px></p>
+
+<p><br></p>
+
+<p><a href="#/3">Jump To Contents</a></p>
+
+</section>
+<section>
+   <section class='' data-state=''>
+    <h2>R DataFrames</h2>
+    <p>A data frame is used for storing data tables. It is a list of vectors of equal length. For example, the following variable df is a data frame containing three vectors n, s, b.</p>
+
+<p>Example:</p>
+
+<pre><code class="r">name &lt;- c(&quot;mary&quot;,&quot;john&quot;,&quot;tom&quot;)
+grades &lt;- c(89,60,74)
+df_student_grades &lt;- data.frame(name,grades)
+print(df_student_grades)
+</code></pre>
+
+<pre><code>##   name grades
+## 1 mary     89
+## 2 john     60
+## 3  tom     74
+</code></pre>
+
+<p>This tutorial will teach you the basics of manuiplating csv (excel) files within R to perform analysis, joining data, etc.</p>
+
+<p>This tutorial also assumes you have installed Rstudio and know how to install packages.</p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Dataframes (Indexing)</h2>
+
+<p>Dataframes can be index by their row and columns using a matrix like structure. </p>
+
+<p>For example to extract the first row and first column value:</p>
+
+<pre><code class="r">df_student_grades[1,1]
+</code></pre>
+
+<pre><code>## [1] mary
+## Levels: john mary tom
+</code></pre>
+
+<p>If only the first entry (row) is of interest:</p>
+
+<pre><code class="r">df_student_grades[1,]
+</code></pre>
+
+<pre><code>##   name grades
+## 1 mary     89
+</code></pre>
+
+<p>Or if only the grades are of interest:</p>
+
+<pre><code class="r">df_student_grades[,2] #the second column represent the grades 
+</code></pre>
+
+<pre><code>## [1] 89 60 74
+</code></pre>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Dataframes (Indexing - Cont)</h2>
+
+<p>To extract the column names of a dataframe:</p>
+
+<pre><code class="r">names(df_student_grades)
+</code></pre>
+
+<pre><code>## [1] &quot;name&quot;   &quot;grades&quot;
+</code></pre>
+
+<p>We can also use column names instead of numerical value to extract a column. 
+Note* this is also true for rows. </p>
+
+<pre><code class="r">df_student_grades[,&quot;grades&quot;]
+</code></pre>
+
+<pre><code>## [1] 89 60 74
+</code></pre>
+
+<p>We can edit a specific cell in the dataframe:</p>
+
+<pre><code class="r">df_student_grades[3,&quot;grades&quot;] &lt;- 80 #edit grades for the 3rd row 
+df_student_grades[3,&quot;grades&quot;]
+</code></pre>
+
+<pre><code>## [1] 80
+</code></pre>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+</section>
+<section class='' data-state='' id='slide-3'>
+  <h2>Install Libraries required</h2>
+  <p>Please install the following libraries by running these codes:</p>
+
+<pre><code class="r">install.packages(c(&quot;dplyr&quot;,&quot;tidyr&quot;,&quot;datasets&quot;,&quot;ggplot2&quot;))
+</code></pre>
+
+<p><br></p>
+
+<p>Please check that you can install &amp; run these libraries.</p>
+
+<pre><code class="r">library(dplyr);
+library(tidyr);
+library(datasets);
+library(ggplot2)
+</code></pre>
+
+</section>
+<section class='' data-state='' id='slide-4'>
+  <h2>Learning DataFrames</h2>
+  <h4>Reading/Writing Files</h4>
+
+<ul>
+<li><p><a href="#/4">Set Working Directory</a></p></li>
+<li><p><a href="#/5">Reading/Writing Excel files, DataTypes</a></p></li>
+</ul>
+
+<h4>Understanding DPLYR</h4>
+
+<ul>
+<li><p><a href="#/6">Introduction / CheatSheet</a></p></li>
+<li><p><a href="#/7">Filtering</a></p></li>
+<li><p><a href="#/8">Select / Contains / Start/End</a></p></li>
+<li><p><a href="#/9">Piping</a></p></li>
+<li><p><a href="#/10">Introduction to Chaining</a></p></li>
+<li><p><a href="#/11">Arrange</a></p></li>
+<li><p><a href="#/12">Create New Columns</a></p></li>
+<li><p><a href="#/13">Summarizing</a></p></li>
+<li><p><a href="#/14">Grouped Operations</a></p></li>
+<li><p><a href="#/15">Combine Datasets (Advanced)</a></p></li>
+<li><p><a href="#/16">Window Functions (Advanced)</a></p></li>
+<li><p><a href="#/17">Reshaping Data (Advanced)</a></p></li>
+</ul>
+
+</section>
+<section class='' data-state='' id='slide-5'>
+  <h2>Set Working Directory</h2>
+  <p>In R, you can set the working directory you wish to find the files. Please create a folder <q><b>named R_dataframe</q></b> in a location you prefer.  </p>
+
+<p>Then, set your working directory as follows: (slightly different for different OS users)</p>
+
+<pre><code class="r">setwd(&#39;/Users/lowyix/Desktop/R_dataframe/&#39;)
+</code></pre>
+
+<p>Alternatively, you can nagivate to the help bar and click <q>Session - Set Working Directory - Choose directory </q> and then select the folder R_dataframe</p>
+
+<p>To get your current working directory,</p>
+
+<pre><code class="r">getwd()
+</code></pre>
+
+<pre><code>## [1] &quot;/Users/lowyix/Desktop/R_dataframe/&quot;
+</code></pre>
+
+<p>To List all the files in the working directory, you can:</p>
+
+<pre><code class="r">list.files()
+</code></pre>
+
+<pre><code>## character(0)
+</code></pre>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+</section>
+<section>
+   <section class='' data-state=''>
+    <h2>Reading/Writing Excel Files</h2>
+    <p>lets load a dataset from one of the libraries; <a href="http://docs.ggplot2.org/0.9.3.1/diamonds.html">diamonds</a></p>
+
+<pre><code class="r">diamonds_df &lt;- diamonds #if the code fails to work, check that you have loaded ggplot2 
+</code></pre>
+
+<h4>Writing out dataframes</h4>
+
+<p>To write out an excel (csv) file, </p>
+
+<pre><code class="r">write.csv(diamonds_df,&quot;diamonds_data.csv&quot;, row.names = FALSE)
+list.files()
+</code></pre>
+
+<pre><code>## [1] &quot;diamonds_data.csv&quot;
+</code></pre>
+
+<p>More information can be found with:</p>
+
+<pre><code class="r">?write.csv
+</code></pre>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Reading in Dataframes</h2>
+
+<pre><code class="r">diamonds_df &lt;- read.csv(&quot;diamonds_data.csv&quot;)
+head(diamonds_df) #more on this later 
+</code></pre>
+
+<pre><code>## Source: local data frame [6 x 10]
+## 
+##   carat       cut  color clarity depth table price     x     y     z
+##   (dbl)    (fctr) (fctr)  (fctr) (dbl) (dbl) (int) (dbl) (dbl) (dbl)
+## 1  0.23     Ideal      E     SI2  61.5    55   326  3.95  3.98  2.43
+## 2  0.21   Premium      E     SI1  59.8    61   326  3.89  3.84  2.31
+## 3  0.23      Good      E     VS1  56.9    65   327  4.05  4.07  2.31
+## 4  0.29   Premium      I     VS2  62.4    58   334  4.20  4.23  2.63
+## 5  0.31      Good      J     SI2  63.3    58   335  4.34  4.35  2.75
+## 6  0.24 Very Good      J    VVS2  62.8    57   336  3.94  3.96  2.48
+</code></pre>
+
+<p><br></p>
+
+<p>In R, you can manage your files too, such as deleting the files in the directory </p>
+
+<pre><code class="r">file.remove(&quot;diamonds_data.csv&quot;)
+</code></pre>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Other Packages</h2>
+
+<p>There are other packages avaliable on CRAN to read/write excel tables and other formats such as xls or xlsx. </p>
+
+<p>However generally CSV is the prefered format as it is machine readable. (Remember that formats such as XLSX allows merge cells, multiple sheets per file etc)</p>
+
+<p><br>
+<br></p>
+
+<p>Example of such packages are </p>
+
+<ul class = "build incremental">
+<li><a href="https://cran.r-project.org/web/packages/openxlsx/openxlsx.pdf">openxlsx</a></li>
+<li><a href="https://cran.r-project.org/web/packages/readr/readr.pdf">readr</a></li>
+<li><a href="https://cran.r-project.org/web/packages/readxl/readxl.pdf">readxl</a></li>
+</ul>
+
+<p><br>
+<br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Data Types</h2>
+
+<p>In R Dataframes, there are mainly 3 types of columns, <u>Factors</u>, <u>Characeers</u> and <u>Integer/Numeric</u>. </p>
+
+<p><br></p>
+
+<p>You can convert one class to another with commands like </p>
+
+<pre><code class="r">as.integer(x)
+as.numeric(x)
+as.character(x)
+as.factor(x)
+</code></pre>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Integer/Numeric</h2>
+
+<p>Integer values means whole numbers only. For instance,</p>
+
+<pre><code class="r">as.integer(1.6)
+</code></pre>
+
+<pre><code>## [1] 1
+</code></pre>
+
+<p><br></p>
+
+<p>Numeric values means &quot;floats&quot; or &quot;decimals&quot;. You can convert &quot;strings&quot; or integers to numerics </p>
+
+<pre><code class="r">string_one &lt;- &quot;1.6&quot;
+as.numeric(string_one)
+</code></pre>
+
+<pre><code>## [1] 1.6
+</code></pre>
+
+<pre><code class="r">as.integer(string_one)
+</code></pre>
+
+<pre><code>## [1] 1
+</code></pre>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Character</h2>
+
+<p>Character types are essentially &quot;strings&quot;. For instance:</p>
+
+<pre><code class="r">as.character(c(1,2,3))
+</code></pre>
+
+<pre><code>## [1] &quot;1&quot; &quot;2&quot; &quot;3&quot;
+</code></pre>
+
+<h2>Factors</h2>
+
+<p>Factors are essentially categories or &quot;Groups&quot; within the data. There are particularly useful when you want to do factor level operations - generally used when plotting graphs. </p>
+
+<p>They are also useful when you want to restrict operations within a Dataframe Factor Column.</p>
+
+<pre><code class="r">as.factor(c(1,2,3))
+</code></pre>
+
+<pre><code>## [1] 1 2 3
+## Levels: 1 2 3
+</code></pre>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Factors (cont)</h2>
+
+<p>In the dataframe diamonds_df, the &quot;str&quot; command runs a quick summary and we can see the &quot;cut&quot;,&quot;color&quot; and &quot;clarity&quot; are factor columns.</p>
+
+<pre><code class="r">str(diamonds)
+</code></pre>
+
+<pre><code>## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:    53940 obs. of  10 variables:
+##  $ carat  : num  0.23 0.21 0.23 0.29 0.31 0.24 0.24 0.26 0.22 0.23 ...
+##  $ cut    : Ord.factor w/ 5 levels &quot;Fair&quot;&lt;&quot;Good&quot;&lt;..: 5 4 2 4 2 3 3 3 1 3 ...
+##  $ color  : Ord.factor w/ 7 levels &quot;D&quot;&lt;&quot;E&quot;&lt;&quot;F&quot;&lt;&quot;G&quot;&lt;..: 2 2 2 6 7 7 6 5 2 5 ...
+##  $ clarity: Ord.factor w/ 8 levels &quot;I1&quot;&lt;&quot;SI2&quot;&lt;&quot;SI1&quot;&lt;..: 2 3 5 4 2 6 7 3 4 5 ...
+##  $ depth  : num  61.5 59.8 56.9 62.4 63.3 62.8 62.3 61.9 65.1 59.4 ...
+##  $ table  : num  55 61 65 58 58 57 57 55 61 61 ...
+##  $ price  : int  326 326 327 334 335 336 336 337 337 338 ...
+##  $ x      : num  3.95 3.89 4.05 4.2 4.34 3.94 3.95 4.07 3.87 4 ...
+##  $ y      : num  3.98 3.84 4.07 4.23 4.35 3.96 3.98 4.11 3.78 4.05 ...
+##  $ z      : num  2.43 2.31 2.31 2.63 2.75 2.48 2.47 2.53 2.49 2.39 ...
+</code></pre>
+
+<p>The different types of cut of a diamonds are:</p>
+
+<pre><code class="r">diamonds_df %&gt;% select(cut) %&gt;% distinct()
+</code></pre>
+
+<pre><code>## Source: local data frame [5 x 1]
+## 
+##         cut
+##      (fctr)
+## 1     Ideal
+## 2   Premium
+## 3      Good
+## 4 Very Good
+## 5      Fair
+</code></pre>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Factors (cont)</h2>
+
+<p>If one tries to edit / add data that is not within the 5 categories, an error will occur. Observe:</p>
+
+<pre><code class="r">diamonds_df[1,&quot;cut&quot;]  #this should return a value &quot;Ideal&quot;
+</code></pre>
+
+<pre><code>## Source: local data frame [1 x 1]
+## 
+##      cut
+##   (fctr)
+## 1  Ideal
+</code></pre>
+
+<p><br></p>
+
+<p>Suppose the value is changed to another category within the list, such as Premium,</p>
+
+<pre><code class="r">diamonds_df[1,&quot;cut&quot;] &lt;- &quot;Premium&quot; #this does not produce any error
+</code></pre>
+
+<p>The &quot;NA&quot; value will be generated instead:</p>
+
+<pre><code class="r">diamonds_df[1,&quot;cut&quot;]
+</code></pre>
+
+<pre><code>## Source: local data frame [1 x 1]
+## 
+##       cut
+##    (fctr)
+## 1 Premium
+</code></pre>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Factor (cont)</h2>
+
+<p>If the value is not within the list:</p>
+
+<pre><code class="r">diamonds_df[1,&quot;cut&quot;] &lt;- &quot;testing&quot; #this does not produce any error
+</code></pre>
+
+<pre><code>## Warning in `[&lt;-.factor`(`*tmp*`, iseq, value = &quot;testing&quot;): invalid factor
+## level, NA generated
+</code></pre>
+
+<pre><code class="r">diamonds_df[1,&quot;cut&quot;]
+</code></pre>
+
+<pre><code>## Source: local data frame [1 x 1]
+## 
+##      cut
+##   (fctr)
+## 1     NA
+</code></pre>
+
+<p>This is particularly useful when you want to make sure certain columns only accept certain values.</p>
+
+<p>Lastly, reset the diamonds_df to its orginial value with the following code. </p>
+
+<pre><code class="r">diamonds_df &lt;- diamonds
+</code></pre>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Factors (Advance)</h2>
+
+<p>Just as an side note, it is possible to change the &quot;levels&quot; of the columns. </p>
+
+<p>The default settings in R is such that they will arrange the levels according to numeric/alphabetical order. Sometimes this may not be ideal (especially in plots), this can be corrected by the following steps:</p>
+
+<pre><code class="r">new_diamonds_df&lt;- ggplot2::diamonds
+levels(new_diamonds_df$cut)
+</code></pre>
+
+<pre><code>## [1] &quot;Fair&quot;      &quot;Good&quot;      &quot;Very Good&quot; &quot;Premium&quot;   &quot;Ideal&quot;
+</code></pre>
+
+<p><br></p>
+
+<p>In the case of diamonds, suppose we want the order Premium, Very Good, Good, Ideal, and Fair instead, we define a new numeric reflecting the previous levels shown above.</p>
+
+<p>Note* - If you do not understand R indexing it is ok, the point of this slide is to show levels manipulation. </p>
+
+<pre><code class="r">new_ordering &lt;- c(4,3,2,5,1)
+levels(new_diamonds_df$cut)[new_ordering] #observe the new changes 
+</code></pre>
+
+<pre><code>## [1] &quot;Premium&quot;   &quot;Very Good&quot; &quot;Good&quot;      &quot;Ideal&quot;     &quot;Fair&quot;
+</code></pre>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Factors (Advance - Cont)</h2>
+
+<p>After defining the numeric vector, replace the orignial column with the new order:</p>
+
+<p><br></p>
+
+<pre><code class="r">new_diamonds_df$cut &lt;- factor(new_diamonds_df$cut,
+                              levels = levels(new_diamonds_df$cut)[new_ordering])  
+
+levels(new_diamonds_df$cut)
+</code></pre>
+
+<pre><code>## [1] &quot;Premium&quot;   &quot;Very Good&quot; &quot;Good&quot;      &quot;Ideal&quot;     &quot;Fair&quot;
+</code></pre>
+
+<p><br></p>
+
+<p>We can see that the levels are readjusted to the levels we desire! </p>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+</section>
+<section>
+   <section class='' data-state=''>
+    <h2>Introduction to DPLYR</h2>
+    <p>DPLYR is a package written by <a href="https://en.wikipedia.org/wiki/Hadley_Wickham">Hadley Wickham</a> who is currently Chief Scientist at RStudio. </p>
+
+<p>It is a fast, consistent tool for working with data frame like objects, both in memory and out of memory.</p>
+
+<ul class = "build incremental">
+<li><p><a href="https://cran.r-project.org/web/packages/dplyr/dplyr.pdf">Github</a></p></li>
+<li><p><a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">Cheatsheet</a></p></li>
+</ul>
+
+<p>Note* - The Cheatsheet covers a significant portion of DPLYR and a short description of each function. </p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+</section>
+<section>
+   <section class='' data-state=''>
+    <h2>Filtering</h2>
+    <p>Lets look at the dataset again:</p>
+
+<pre><code class="r">head(diamonds_df)
+</code></pre>
+
+<pre><code>## Source: local data frame [6 x 10]
+## 
+##   carat       cut  color clarity depth table price     x     y     z
+##   (dbl)    (fctr) (fctr)  (fctr) (dbl) (dbl) (int) (dbl) (dbl) (dbl)
+## 1  0.23     Ideal      E     SI2  61.5    55   326  3.95  3.98  2.43
+## 2  0.21   Premium      E     SI1  59.8    61   326  3.89  3.84  2.31
+## 3  0.23      Good      E     VS1  56.9    65   327  4.05  4.07  2.31
+## 4  0.29   Premium      I     VS2  62.4    58   334  4.20  4.23  2.63
+## 5  0.31      Good      J     SI2  63.3    58   335  4.34  4.35  2.75
+## 6  0.24 Very Good      J    VVS2  62.8    57   336  3.94  3.96  2.48
+</code></pre>
+
+<p>As well as the names:</p>
+
+<pre><code class="r">names(diamonds_df)
+</code></pre>
+
+<pre><code>##  [1] &quot;carat&quot;   &quot;cut&quot;     &quot;color&quot;   &quot;clarity&quot; &quot;depth&quot;   &quot;table&quot;   &quot;price&quot;  
+##  [8] &quot;x&quot;       &quot;y&quot;       &quot;z&quot;
+</code></pre>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Filtering (Cont)</h2>
+
+<p>Suppose we want to look at diamonds with color &#39;D&#39;:</p>
+
+<pre><code class="r">diamonds_df_color_D &lt;- filter(diamonds_df,color == &#39;D&#39;)
+head(diamonds_df_color_D,3)
+</code></pre>
+
+<pre><code>## Source: local data frame [3 x 10]
+## 
+##   carat       cut  color clarity depth table price     x     y     z
+##   (dbl)    (fctr) (fctr)  (fctr) (dbl) (dbl) (int) (dbl) (dbl) (dbl)
+## 1  0.23 Very Good      D     VS2  60.5    61   357  3.96  3.97  2.40
+## 2  0.23 Very Good      D     VS1  61.9    58   402  3.92  3.96  2.44
+## 3  0.26 Very Good      D     VS2  60.8    59   403  4.13  4.16  2.52
+</code></pre>
+
+<p>Suppose we want to look at diamonds with a larger carat, say size 2 and above:</p>
+
+<pre><code class="r">diamonds_df_carat_abv2 &lt;- filter(diamonds_df,carat &gt;= 2)
+head(diamonds_df_carat_abv2,3)
+</code></pre>
+
+<pre><code>## Source: local data frame [3 x 10]
+## 
+##   carat     cut  color clarity depth table price     x     y     z
+##   (dbl)  (fctr) (fctr)  (fctr) (dbl) (dbl) (int) (dbl) (dbl) (dbl)
+## 1  2.00 Premium      J      I1  61.5    59  5051  8.11  8.06  4.97
+## 2  2.06 Premium      J      I1  61.2    58  5203  8.10  8.07  4.95
+## 3  2.14    Fair      J      I1  69.4    57  5405  7.74  7.70  5.36
+</code></pre>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Filtering (Cont)</h2>
+
+<p>You can combine &#39;and&#39; conditions or &#39;or&#39; conditions as follows:</p>
+
+<p>Example &#39;and&#39;:</p>
+
+<pre><code class="r">diamonds_df_color_D_and_carat_abv2 &lt;- filter(diamonds_df, color == &quot;D&quot; &amp; carat &gt;= 2)
+head(diamonds_df_color_D_and_carat_abv2,3)
+</code></pre>
+
+<pre><code>## Source: local data frame [3 x 10]
+## 
+##   carat     cut  color clarity depth table price     x     y     z
+##   (dbl)  (fctr) (fctr)  (fctr) (dbl) (dbl) (int) (dbl) (dbl) (dbl)
+## 1  2.00    Good      D     SI2  63.8    57 10528  7.93  7.88  5.04
+## 2  2.02 Premium      D     SI2  61.1    57 12108  8.12  8.05  4.94
+## 3  2.00 Premium      D     SI2  59.3    62 12576  8.12  8.06  4.80
+</code></pre>
+
+<p><br></p>
+
+<p>Example &#39;or&#39;</p>
+
+<pre><code class="r">diamonds_df_color_D_or_carat_abv2 &lt;- filter(diamonds_df, color == &quot;D&quot; &amp; carat &gt;= 2)
+head(diamonds_df_color_D_or_carat_abv2,3)
+</code></pre>
+
+<pre><code>## Source: local data frame [3 x 10]
+## 
+##   carat     cut  color clarity depth table price     x     y     z
+##   (dbl)  (fctr) (fctr)  (fctr) (dbl) (dbl) (int) (dbl) (dbl) (dbl)
+## 1  2.00    Good      D     SI2  63.8    57 10528  7.93  7.88  5.04
+## 2  2.02 Premium      D     SI2  61.1    57 12108  8.12  8.05  4.94
+## 3  2.00 Premium      D     SI2  59.3    62 12576  8.12  8.06  4.80
+</code></pre>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+</section>
+<section>
+   <section class='' data-state=''>
+    <h2>Selecting Columns</h2>
+    <p>You can select Columns with the <u>&quot;select&quot;</u> command. For example:</p>
+
+<pre><code class="r">diamond_df_selected &lt;- select(diamonds_df,carat,cut)
+head(diamond_df_selected,3)
+</code></pre>
+
+<pre><code>## Source: local data frame [3 x 2]
+## 
+##   carat     cut
+##   (dbl)  (fctr)
+## 1  0.23   Ideal
+## 2  0.21 Premium
+## 3  0.23    Good
+</code></pre>
+
+<p><br> </p>
+
+<p>There are other kind of commands that can be used in conjunction with Dplyr, for example <u>&quot;contains&quot;</u>:</p>
+
+<pre><code class="r">diamonds_df_contains_ri &lt;- select(diamonds_df, contains(&quot;ri&quot;))
+head(diamonds_df_contains_ri,3)
+</code></pre>
+
+<pre><code>## Source: local data frame [3 x 2]
+## 
+##   clarity price
+##    (fctr) (int)
+## 1     SI2   326
+## 2     SI1   326
+## 3     VS1   327
+</code></pre>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Selecting Columns (Cont)</h2>
+
+<p>Example <u>&#39;starts_with&#39;</u>:</p>
+
+<pre><code class="r">diamonds_df_start_with_c &lt;- select(diamonds_df, starts_with(&quot;c&quot;))
+head(diamonds_df_start_with_c,3)
+</code></pre>
+
+<pre><code>## Source: local data frame [3 x 4]
+## 
+##   carat     cut  color clarity
+##   (dbl)  (fctr) (fctr)  (fctr)
+## 1  0.23   Ideal      E     SI2
+## 2  0.21 Premium      E     SI1
+## 3  0.23    Good      E     VS1
+</code></pre>
+
+<p>Example <u>&#39;ends_with&#39;</u>:</p>
+
+<pre><code class="r">diamonds_df_ends_with_t &lt;- select(diamonds_df, ends_with(&quot;t&quot;))
+head(diamonds_df_ends_with_t,3)
+</code></pre>
+
+<pre><code>## Source: local data frame [3 x 2]
+## 
+##   carat     cut
+##   (dbl)  (fctr)
+## 1  0.23   Ideal
+## 2  0.21 Premium
+## 3  0.23    Good
+</code></pre>
+
+<p><br></p>
+
+<p>More information can be found in the <a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">Cheatsheet</a></p>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+</section>
+<section>
+   <section class='' data-state=''>
+    <h2>Piping</h2>
+    <p>To understand piping, lets first understand a mock example by creating a function.</p>
+
+<pre><code class="r">multiply_each_other &lt;- function(x,y){
+  return(x*y)
+}
+</code></pre>
+
+<p>Then, we can call this function as follows:</p>
+
+<pre><code class="r">multiply_each_other(2,4)
+</code></pre>
+
+<pre><code>## [1] 8
+</code></pre>
+
+<p>With Piping, we can perform a similar operation as follows:</p>
+
+<pre><code class="r">2 %&gt;% multiply_each_other(4)
+</code></pre>
+
+<pre><code>## [1] 8
+</code></pre>
+
+<p><br> </p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Piping (Cont)</h2>
+
+<p>In other words, when you pipe an object to another function, it &quot;fills&quot; up the first argument of the new function. </p>
+
+<p>Observe the two codes we used earlier:</p>
+
+<pre><code class="r">df1 &lt;- select(diamonds_df,carat)
+head(df1,3)
+</code></pre>
+
+<pre><code>## Source: local data frame [3 x 1]
+## 
+##   carat
+##   (dbl)
+## 1  0.23
+## 2  0.21
+## 3  0.23
+</code></pre>
+
+<p>vs</p>
+
+<pre><code class="r">df2 &lt;- diamonds_df %&gt;% select(carat)
+head(df2,3)
+</code></pre>
+
+<pre><code>## Source: local data frame [3 x 1]
+## 
+##   carat
+##   (dbl)
+## 1  0.23
+## 2  0.21
+## 3  0.23
+</code></pre>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+</section>
+<section>
+   <section class='' data-state=''>
+    <h2>Introduction to Chaining</h2>
+    <p>The advantage of piping means it allows us to do chaining. To explain this concept, lets assume that you have to select some columns and filter by certain conditions. You would either:</p>
+
+<pre><code class="r">df_select &lt;- select(diamonds_df, starts_with(&quot;c&quot;))
+df_select_filter &lt;- filter(df_select, carat &gt;=2)
+head(df_select_filter,3)
+</code></pre>
+
+<pre><code>## Source: local data frame [3 x 4]
+## 
+##   carat     cut  color clarity
+##   (dbl)  (fctr) (fctr)  (fctr)
+## 1  2.00 Premium      J      I1
+## 2  2.06 Premium      J      I1
+## 3  2.14    Fair      J      I1
+</code></pre>
+
+<p>OR:</p>
+
+<pre><code class="r">df_select_filter2 &lt;- filter(select(diamonds_df, starts_with(&quot;c&quot;)),carat&gt;=2)
+head(df_select_filter2,3)
+</code></pre>
+
+<pre><code>## Source: local data frame [3 x 4]
+## 
+##   carat     cut  color clarity
+##   (dbl)  (fctr) (fctr)  (fctr)
+## 1  2.00 Premium      J      I1
+## 2  2.06 Premium      J      I1
+## 3  2.14    Fair      J      I1
+</code></pre>
+
+<p>Notice the code can be a little hard to read - What if you have multiple functions to run?</p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Introduction to Chaining (Cont)</h2>
+
+<p>This is where Chaining is very useful by combining piping, </p>
+
+<p>Observe:</p>
+
+<pre><code class="r">df4 &lt;- diamonds_df %&gt;% 
+  select(starts_with(&quot;c&quot;)) %&gt;%
+  filter(carat &gt;= 2)
+
+head(df4,3)
+</code></pre>
+
+<pre><code>## Source: local data frame [3 x 4]
+## 
+##   carat     cut  color clarity
+##   (dbl)  (fctr) (fctr)  (fctr)
+## 1  2.00 Premium      J      I1
+## 2  2.06 Premium      J      I1
+## 3  2.14    Fair      J      I1
+</code></pre>
+
+<p>In the subsequent examples, you will see more of piping in action. </p>
+
+<p>Additional Note* - Piping exists in many other packages, such as tidyr, ggvis, leaflet and many other libraries.</p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+</section>
+<section>
+   <section class='' data-state=''>
+    <h2>Arranging</h2>
+    <p>To sort the data by a particular column,</p>
+
+<pre><code class="r">diamonds_df %&gt;% arrange(carat) %&gt;% head(3)
+</code></pre>
+
+<pre><code>## Source: local data frame [3 x 10]
+## 
+##   carat     cut  color clarity depth table price     x     y     z
+##   (dbl)  (fctr) (fctr)  (fctr) (dbl) (dbl) (int) (dbl) (dbl) (dbl)
+## 1   0.2 Premium      E     SI2  60.2    62   345  3.79  3.75  2.27
+## 2   0.2 Premium      E     VS2  59.8    62   367  3.79  3.77  2.26
+## 3   0.2 Premium      E     VS2  59.0    60   367  3.81  3.78  2.24
+</code></pre>
+
+<p>You can arrange by two columns as well, for example by carat and clarity:</p>
+
+<pre><code class="r">diamonds_df %&gt;% arrange(carat,clarity) %&gt;% head(3)
+</code></pre>
+
+<pre><code>## Source: local data frame [3 x 10]
+## 
+##   carat     cut  color clarity depth table price     x     y     z
+##   (dbl)  (fctr) (fctr)  (fctr) (dbl) (dbl) (int) (dbl) (dbl) (dbl)
+## 1   0.2 Premium      E     SI2  60.2    62   345  3.79  3.75  2.27
+## 2   0.2 Premium      E     VS2  59.8    62   367  3.79  3.77  2.26
+## 3   0.2 Premium      E     VS2  59.0    60   367  3.81  3.78  2.24
+</code></pre>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Arranging (Cont)</h2>
+
+<p>To sort in a decreasing order, use the <u>&quot;desc&quot;</q></u> function:</p>
+
+<pre><code class="r">diamonds_df %&gt;% arrange(carat,desc(clarity)) %&gt;% head(3)
+</code></pre>
+
+<pre><code>## Source: local data frame [3 x 10]
+## 
+##   carat     cut  color clarity depth table price     x     y     z
+##   (dbl)  (fctr) (fctr)  (fctr) (dbl) (dbl) (int) (dbl) (dbl) (dbl)
+## 1   0.2 Premium      E     VS2  59.8    62   367  3.79  3.77  2.26
+## 2   0.2 Premium      E     VS2  59.0    60   367  3.81  3.78  2.24
+## 3   0.2 Premium      E     VS2  61.1    59   367  3.81  3.78  2.32
+</code></pre>
+
+<p>Another example:</p>
+
+<pre><code class="r">diamonds_df %&gt;% arrange(desc(carat),desc(price)) %&gt;% head(3)
+</code></pre>
+
+<pre><code>## Source: local data frame [3 x 10]
+## 
+##   carat    cut  color clarity depth table price     x     y     z
+##   (dbl) (fctr) (fctr)  (fctr) (dbl) (dbl) (int) (dbl) (dbl) (dbl)
+## 1  5.01   Fair      J      I1  65.5    59 18018 10.74 10.54  6.98
+## 2  4.50   Fair      J      I1  65.8    58 18531 10.23 10.16  6.72
+## 3  4.13   Fair      H      I1  64.8    61 17329 10.00  9.85  6.43
+</code></pre>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+</section>
+<section>
+   <section class='' data-state=''>
+    <h2>Creating New Columns</h2>
+    <p>Creating new columns can be done with the <u>&quot;mutate&quot;</u> or <u>&quot;transmute&quot;</u>&quot; columns. The difference between transmute and mutate is transmute drops its orginial columns.</p>
+
+<p>For example, lets compute the price per carat: </p>
+
+<pre><code class="r">diamonds_df %&gt;% mutate(price_per_carat = price/carat) %&gt;% 
+  select(starts_with(&#39;c&#39;),price_per_carat) %&gt;% head(3)
+</code></pre>
+
+<pre><code>## Source: local data frame [3 x 5]
+## 
+##   carat     cut  color clarity price_per_carat
+##   (dbl)  (fctr) (fctr)  (fctr)           (dbl)
+## 1  0.23   Ideal      E     SI2        1417.391
+## 2  0.21 Premium      E     SI1        1552.381
+## 3  0.23    Good      E     VS1        1421.739
+</code></pre>
+
+<p>With transmute:</p>
+
+<pre><code class="r">diamonds_df %&gt;% transmute(price_per_carat = price/carat) %&gt;% head(3)
+</code></pre>
+
+<pre><code>## Source: local data frame [3 x 1]
+## 
+##   price_per_carat
+##             (dbl)
+## 1        1417.391
+## 2        1552.381
+## 3        1421.739
+</code></pre>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Creating New Columns (Cont)</h2>
+
+<p>You can combine ifelse / functions along with <u>mutate</u> functions.</p>
+
+<p>For example you want to create a new column to differentiate large diamonds (abv 1 carat) and small diamonds. </p>
+
+<pre><code class="r">set.seed(5) #set seed allows everyone to have the same results
+diamonds_df %&gt;% 
+  mutate(big_or_small = ifelse(carat &gt;=1, &quot;big&quot;,&quot;small&quot;)) %&gt;% 
+  select(starts_with(&#39;c&#39;),big_or_small) %&gt;%
+  sample_n(5) %&gt;%
+  head(5)
+</code></pre>
+
+<pre><code>## Source: local data frame [5 x 5]
+## 
+##   carat       cut  color clarity big_or_small
+##   (dbl)    (fctr) (fctr)  (fctr)        (chr)
+## 1  1.00      Good      H     VS2          big
+## 2  0.41   Premium      G     VS1        small
+## 3  0.70      Good      E     SI1        small
+## 4  1.01 Very Good      F     VS2          big
+## 5  0.90 Very Good      D     SI1        small
+</code></pre>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Creating New Columns (Cont)</h2>
+
+<p>You can use functions as well:</p>
+
+<pre><code class="r">carat_big_small &lt;- function(x){
+  temp = ifelse(x&gt;=1,&quot;big&quot;,&quot;small&quot;)
+  return(temp)
+}
+
+set.seed(5) #set seed allows everyone to have the same results
+diamonds_df %&gt;% 
+  mutate(big_or_small = carat_big_small(carat)) %&gt;% 
+  select(starts_with(&#39;c&#39;),big_or_small) %&gt;%
+  sample_n(5) %&gt;%
+  head(5)
+</code></pre>
+
+<pre><code>## Source: local data frame [5 x 5]
+## 
+##   carat       cut  color clarity big_or_small
+##   (dbl)    (fctr) (fctr)  (fctr)        (chr)
+## 1  1.00      Good      H     VS2          big
+## 2  0.41   Premium      G     VS1        small
+## 3  0.70      Good      E     SI1        small
+## 4  1.01 Very Good      F     VS2          big
+## 5  0.90 Very Good      D     SI1        small
+</code></pre>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+</section>
+<section>
+   <section class='' data-state=''>
+    <h2>Summarizing</h2>
+    <p>There are numerous summarize functions, lets look at some examples:</p>
+
+<pre><code class="r">diamonds_df %&gt;% summarise(mean(table))
+</code></pre>
+
+<pre><code>## Source: local data frame [1 x 1]
+## 
+##   mean(table)
+##         (dbl)
+## 1    57.45718
+</code></pre>
+
+<p>You can include multiple functions as follows:</p>
+
+<pre><code class="r">diamonds_df %&gt;% summarise(mean = mean(table),
+                          median = median(table),
+                          unique_carat = n_distinct(carat),
+                          max_carat = max(carat))
+</code></pre>
+
+<pre><code>## Source: local data frame [1 x 4]
+## 
+##       mean median unique_carat max_carat
+##      (dbl)  (dbl)        (int)     (dbl)
+## 1 57.45718     57          273      5.01
+</code></pre>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+</section>
+<section>
+   <section class='' data-state=''>
+    <h2>Grouped Data</h2>
+    <p><u>group_by</u> should be a familar operation for those who use SQL, let&#39;s see an example first:</p>
+
+<p>We want to know the relationship between the cut and the price. </p>
+
+<pre><code class="r">diamonds_df %&gt;% 
+  group_by(cut) %&gt;% 
+  summarise(mean(price))
+</code></pre>
+
+<pre><code>## Source: local data frame [5 x 2]
+## 
+##         cut mean(price)
+##      (fctr)       (dbl)
+## 1      Fair    4358.758
+## 2      Good    3928.864
+## 3 Very Good    3981.760
+## 4   Premium    4584.258
+## 5     Ideal    3457.542
+</code></pre>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Grouped Data (Cont)</h2>
+
+<p>What about the color?</p>
+
+<pre><code class="r">diamonds_df %&gt;%
+  group_by(color) %&gt;%
+  summarise(mean(price))
+</code></pre>
+
+<pre><code>## Source: local data frame [7 x 2]
+## 
+##    color mean(price)
+##   (fctr)       (dbl)
+## 1      D    3169.954
+## 2      E    3076.752
+## 3      F    3724.886
+## 4      G    3999.136
+## 5      H    4486.669
+## 6      I    5091.875
+## 7      J    5323.818
+</code></pre>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Grouped Data (Cont)</h2>
+
+<p>Suppose you want to find out the max price within each group</p>
+
+<pre><code class="r">diamonds_df %&gt;%
+  group_by(color, cut) %&gt;%
+  summarise(max_price = max(price)) %&gt;%
+  arrange(max_price) %&gt;%
+  head(10)
+</code></pre>
+
+<pre><code>## Source: local data frame [10 x 3]
+## Groups: color [2]
+## 
+##     color       cut max_price
+##    (fctr)    (fctr)     (int)
+## 1       D      Fair     16386
+## 2       D      Good     18468
+## 3       D Very Good     18542
+## 4       D   Premium     18575
+## 5       D     Ideal     18693
+## 6       E      Fair     15584
+## 7       E      Good     18236
+## 8       E   Premium     18477
+## 9       E     Ideal     18729
+## 10      E Very Good     18731
+</code></pre>
+
+<p>We can see that (E, Very Good) has a higher value than (D, Fair). This is because when using the group_by operation, it finds out the max price within each group. </p>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Grouped Data (Cont)</h2>
+
+<p>Sometimes you will need to <u>&quot;ungroup()&quot;</u> your data to remove the grouping, lets see an example:</p>
+
+<p>Question : find out the highest average price within each group and then list the top 5 groups with the highest everage price. </p>
+
+<pre><code class="r">df5 &lt;- diamonds_df %&gt;%
+  group_by(color, cut) %&gt;%
+  summarise(mean_price = mean(price)) %&gt;%
+  arrange(desc(mean_price))
+
+df5 %&gt;% head(6)
+</code></pre>
+
+<pre><code>## Source: local data frame [6 x 3]
+## Groups: color [2]
+## 
+##    color       cut mean_price
+##   (fctr)    (fctr)      (dbl)
+## 1      D      Fair   4291.061
+## 2      D   Premium   3631.293
+## 3      D Very Good   3470.467
+## 4      D      Good   3405.382
+## 5      D     Ideal   2629.095
+## 6      E      Fair   3682.312
+</code></pre>
+
+<p>We can see that (E,fair) has a higher price than (D,Ideal).</p>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Grouped Data (Cont)</h2>
+
+<p>We can fix this with the <u>&quot;ungroup&quot;</u> option: </p>
+
+<pre><code class="r">diamonds_df %&gt;%
+  group_by(color, cut) %&gt;%
+  summarise(mean_price = mean(price)) %&gt;%
+  ungroup() %&gt;%
+  arrange(desc(mean_price)) %&gt;%
+  head(10)
+</code></pre>
+
+<pre><code>## Source: local data frame [10 x 3]
+## 
+##     color       cut mean_price
+##    (fctr)    (fctr)      (dbl)
+## 1       J   Premium   6294.592
+## 2       I   Premium   5946.181
+## 3       I Very Good   5255.880
+## 4       H   Premium   5216.707
+## 5       H      Fair   5135.683
+## 6       J Very Good   5103.513
+## 7       I      Good   5078.533
+## 8       J      Fair   4975.655
+## 9       J     Ideal   4918.186
+## 10      I      Fair   4685.446
+</code></pre>
+
+<p>Now the highest 10 mean prices belong to J, I, H cuts. One can conclude that color affects the price more than the cut. </p>
+
+<p><br></p>
+
+<p>Question:Find out which cut has the highest price within each color. </p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Grouped Data (Cont)</h2>
+
+<p>Answer:</p>
+
+<pre><code class="r">diamonds_df %&gt;% 
+  group_by(color,cut) %&gt;%
+  summarise(mean_price = mean(price), count = n()) %&gt;%
+  ungroup() %&gt;%
+  group_by(color)%&gt;%
+  filter(mean_price == max(mean_price))
+</code></pre>
+
+<pre><code>## Source: local data frame [7 x 4]
+## Groups: color [7]
+## 
+##    color     cut mean_price count
+##   (fctr)  (fctr)      (dbl) (int)
+## 1      D    Fair   4291.061   163
+## 2      E    Fair   3682.312   224
+## 3      F Premium   4324.890  2331
+## 4      G Premium   4500.742  2924
+## 5      H Premium   5216.707  2360
+## 6      I Premium   5946.181  1428
+## 7      J Premium   6294.592   808
+</code></pre>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+</section>
+<section>
+   <section class='' data-state=''>
+    <h2>Combine Datasets (Advance)</h2>
+    <p><a href="#/3">Back To Contents</a></p>
+
+<p>There are two ways to join data set, either by joining, or binding. For joining data there is <u>left_join</u>, <u>right_join</u>, <u>inner_join</u>, <u>full_join</u>, <u>semi_join</u>, <u>anti_join</u>.</p>
+
+<p>Define the following variables:</p>
+
+<pre><code class="r">data_A &lt;- data.frame(names = c(&quot;amber&quot;,&quot;bryan&quot;,&quot;diana&quot;), grades = c(84,93,56))
+data_B &lt;- data.frame(names = c(&quot;amber&quot;,&quot;bryan&quot;,&quot;charlie&quot;), gender = c(&quot;F&quot;,&quot;M&quot;,&quot;M&quot;))
+</code></pre>
+
+<p>left_join : join matching rows from B to A</p>
+
+<pre><code class="r">data_A %&gt;% left_join(data_B, by = &quot;names&quot;)
+</code></pre>
+
+<pre><code>## Warning in left_join_impl(x, y, by$x, by$y): joining factors with different
+## levels, coercing to character vector
+</code></pre>
+
+<pre><code>##   names grades gender
+## 1 amber     84      F
+## 2 bryan     93      M
+## 3 diana     56   &lt;NA&gt;
+</code></pre>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Combine Datasets (Adv-Cont)</h2>
+
+<p>Recall that dealing with factor with differnet levels will result in a warning message. To overcome this, lets change them to character levels:</p>
+
+<pre><code class="r">data_A &lt;- data_A %&gt;% mutate(names = as.character(names))
+data_B &lt;- data_B %&gt;% mutate(names = as.character(names))
+</code></pre>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Combine Datasets (Adv-Cont)</h2>
+
+<p>left_join: join matching rows from b to a</p>
+
+<pre><code class="r">data_A %&gt;% left_join(data_B, by = &quot;names&quot;)
+</code></pre>
+
+<pre><code>##   names grades gender
+## 1 amber     84      F
+## 2 bryan     93      M
+## 3 diana     56   &lt;NA&gt;
+</code></pre>
+
+<p>right_join:Join matching rows from a to b.</p>
+
+<pre><code class="r">data_A %&gt;% right_join(data_B, by = &quot;names&quot;)
+</code></pre>
+
+<pre><code>##     names grades gender
+## 1   amber     84      F
+## 2   bryan     93      M
+## 3 charlie     NA      M
+</code></pre>
+
+<p>inner_join:Join data. Retain only rows in both sets.</p>
+
+<pre><code class="r">data_A %&gt;% inner_join(data_B, by = &quot;names&quot;)
+</code></pre>
+
+<pre><code>##   names grades gender
+## 1 amber     84      F
+## 2 bryan     93      M
+</code></pre>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Combine Datasets (Adv-Cont)</h2>
+
+<p>full_join: Join data. Retain all values, all rows.</p>
+
+<pre><code class="r">data_A %&gt;% full_join(data_B, by = &quot;names&quot;)
+</code></pre>
+
+<pre><code>##     names grades gender
+## 1   amber     84      F
+## 2   bryan     93      M
+## 3   diana     56   &lt;NA&gt;
+## 4 charlie     NA      M
+</code></pre>
+
+<p>semi_join: All rows in a that have a match in b.</p>
+
+<pre><code class="r">data_A %&gt;% semi_join(data_B, by = &quot;names&quot;)
+</code></pre>
+
+<pre><code>##   names grades
+## 1 amber     84
+## 2 bryan     93
+</code></pre>
+
+<p>anti_join: All rows in a that do not have a match in b.</p>
+
+<pre><code class="r">data_A %&gt;% anti_join(data_B, by = &quot;names&quot;)
+</code></pre>
+
+<pre><code>##   names grades
+## 1 diana     56
+</code></pre>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Combine Datasets (Adv-Cont)</h2>
+
+<p>You can bind datasets together as well:</p>
+
+<p>bind_rows:</p>
+
+<pre><code class="r">data_C &lt;- data.frame(names = c(&quot;cheryl&quot;,&quot;elieen&quot;,&quot;faith&quot;), grades = c(40,60,100)) %&gt;%
+  mutate(names = as.character(names))
+
+data_A %&gt;% bind_rows(data_C)
+</code></pre>
+
+<pre><code>## Source: local data frame [6 x 2]
+## 
+##    names grades
+##    (chr)  (dbl)
+## 1  amber     84
+## 2  bryan     93
+## 3  diana     56
+## 4 cheryl     40
+## 5 elieen     60
+## 6  faith    100
+</code></pre>
+
+<p>bind_cols:</p>
+
+<pre><code class="r">data_A %&gt;% bind_cols(data_C)
+</code></pre>
+
+<pre><code>## Source: local data frame [3 x 4]
+## 
+##   names grades  names grades
+##   (chr)  (dbl)  (chr)  (dbl)
+## 1 amber     84 cheryl     40
+## 2 bryan     93 elieen     60
+## 3 diana     56  faith    100
+</code></pre>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+</section>
+<section>
+   <section class='' data-state=''>
+    <h2>Window Functions (Advanced)</h2>
+    <p>Window Functions are essentially functions that performs specific analysis. </p>
+
+<p>more details can be found <a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">here</a></p>
+
+<p>Suppose you want to find your cumulative sales each month: </p>
+
+<pre><code class="r">data_sales &lt;- data.frame(month = 1:12, sales = rnorm(12,10000,2000))
+data_sales %&gt;% mutate(cumulative_sales = cumsum(sales))
+</code></pre>
+
+<pre><code>##    month     sales cumulative_sales
+## 1      1 11054.889         11054.89
+## 2      2 11740.625         22795.51
+## 3      3  7551.755         30347.27
+## 4      4  9952.436         40299.70
+## 5      5 10297.745         50597.45
+## 6      6  8330.116         58927.57
+## 7      7 12430.554         71358.12
+## 8      8 12006.911         83365.03
+## 9      9 11169.850         94534.88
+## 10    10  8493.949        103028.83
+## 11    11  9899.260        112928.09
+## 12    12 13649.063        126577.15
+</code></pre>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+</section>
+<section>
+   <section class='' data-state=''>
+    <h2>Reshaping Data (Advanced)</h2>
+    <p>There are two types of data, &quot;wide&quot; and &quot;long&quot;/&quot;narrow&quot; format. </p>
+
+<p>The following shows a &quot;wide&quot; format.</p>
+
+<p><br></p>
+
+<table><thead>
+<tr>
+<th align="left">names</th>
+<th align="right">weight</th>
+<th align="right">height</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">Amber</td>
+<td align="right">60</td>
+<td align="right">152</td>
+</tr>
+<tr>
+<td align="left">Bryan</td>
+<td align="right">90</td>
+<td align="right">184</td>
+</tr>
+<tr>
+<td align="left">Charlie</td>
+<td align="right">80</td>
+<td align="right">178</td>
+</tr>
+</tbody></table>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Reshaping Data (Adv-Cont)</h2>
+
+<p>The following shows a &#39;long&#39; format:</p>
+
+<p><br></p>
+
+<table><thead>
+<tr>
+<th align="left">names</th>
+<th align="left">variable</th>
+<th align="right">measurements</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">Amber</td>
+<td align="left">weight</td>
+<td align="right">60</td>
+</tr>
+<tr>
+<td align="left">Bryan</td>
+<td align="left">weight</td>
+<td align="right">90</td>
+</tr>
+<tr>
+<td align="left">Charlie</td>
+<td align="left">weight</td>
+<td align="right">80</td>
+</tr>
+<tr>
+<td align="left">Amber</td>
+<td align="left">height</td>
+<td align="right">152</td>
+</tr>
+<tr>
+<td align="left">Bryan</td>
+<td align="left">height</td>
+<td align="right">184</td>
+</tr>
+<tr>
+<td align="left">Charlie</td>
+<td align="left">height</td>
+<td align="right">178</td>
+</tr>
+</tbody></table>
+
+<p><br></p>
+
+<p>More information can be found <a href="https://en.wikipedia.org/wiki/Wide_and_narrow_data">here</a>. There are many uses cases where you need wide over long data. </p>
+
+<p><br></p>
+
+<p>For examples, refer <a href="http://www.theanalysisfactor.com/wide-and-long-data/">here</a></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Reshaping Data (Adv-Cont)</h2>
+
+<p>Lets look at a more complicated example with the following mock dataset of 2 students over 2 years:</p>
+
+<pre><code>##   names grades_Q1_2015 grades_Q2_2015 grades_Q3_2015 grades_Q4_2015
+## 1 amber             60             54             90             87
+## 2 bryan             80             83             74             76
+##   grades_Q1_2016 grades_Q2_2016 grades_Q3_2016 grades_Q4_2016
+## 1             60             58             40             93
+## 2             79             87             85             81
+</code></pre>
+
+<p>Suppose i want to find out the average score of each year, i have to write the following code:</p>
+
+<pre><code class="r">data_E %&gt;% transmute(Y2015 = 0.25*(grades_Q1_2015+grades_Q2_2015+grades_Q3_2015+grades_Q4_2015),
+                     Y2016 = 0.25*(grades_Q1_2016+grades_Q2_2016+grades_Q3_2016+grades_Q4_2016))
+</code></pre>
+
+<pre><code>##   Y2015 Y2016
+## 1 72.75 62.75
+## 2 78.25 83.00
+</code></pre>
+
+<p>This requires lots of coding + sometimes it may not be just 8 columns in this example ; what if the data for sales is over a 10 years period and a monthly breakdown is required?</p>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Reshaping Data (Adv-Cont)</h2>
+
+<p>This is when converting wide to long data can be extremely helpful for further analysis. Usually as a rule of thumb, long format is for analysis while wide format is for viewing consumption (i.e on a presentation).</p>
+
+<p>For the same analysis in the previous slide: </p>
+
+<pre><code class="r">data_E %&gt;%
+  gather(key = variable, value = score, 
+         grades_Q1_2015,grades_Q2_2015,grades_Q3_2015,grades_Q4_2015,
+         grades_Q1_2016,grades_Q2_2016,grades_Q3_2016,grades_Q4_2016) %&gt;%
+  separate(variable, c(&quot;grades&quot;,&quot;quarter&quot;,&quot;year&quot;), sep = &quot;_&quot;) %&gt;% #More information in next slides
+  group_by(names,year) %&gt;%
+  summarise(mean(score))
+</code></pre>
+
+<pre><code>## Source: local data frame [4 x 3]
+## Groups: names [?]
+## 
+##    names  year mean(score)
+##   (fctr) (chr)       (dbl)
+## 1  amber  2015       72.75
+## 2  amber  2016       62.75
+## 3  bryan  2015       78.25
+## 4  bryan  2016       83.00
+</code></pre>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Reshaping Data (Adv-Cont)</h2>
+
+<p>Lets explain the first part how <u>&quot;gather&quot;</u> works</p>
+
+<pre><code class="r">data_E %&gt;%
+  gather(key = variable, value = score, 
+         grades_Q1_2015,grades_Q2_2015,grades_Q3_2015,grades_Q4_2015,
+         grades_Q1_2016,grades_Q2_2016,grades_Q3_2016,grades_Q4_2016) %&gt;%
+  head(2)
+</code></pre>
+
+<pre><code>##   names       variable score
+## 1 amber grades_Q1_2015    60
+## 2 bryan grades_Q1_2015    80
+</code></pre>
+
+<p>OR:</p>
+
+<pre><code class="r">data_E %&gt;%
+  gather(key = variable, value = score, 
+         -names) %&gt;% #notice the hypen sign
+  head(2)
+</code></pre>
+
+<pre><code>##   names       variable score
+## 1 amber grades_Q1_2015    60
+## 2 bryan grades_Q1_2015    80
+</code></pre>
+
+<p>In other words, you specify the new key column name, the new value column name, followed by either the key columns (with the minus sign) or the value columns. </p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Reshaping Data (Adv-Cont)</h2>
+
+<p>Heres another example with the iris dataset which is found in the documentation of gather:</p>
+
+<p>By specifying the &quot;value&quot; columns:</p>
+
+<pre><code class="r">mini_iris &lt;- iris[c(1, 51, 101), ]
+gather(mini_iris, key = flower_att, value = measurement,
+       Sepal.Length, Sepal.Width, Petal.Length, Petal.Width)
+</code></pre>
+
+<pre><code>##       Species   flower_att measurement
+## 1      setosa Sepal.Length         5.1
+## 2  versicolor Sepal.Length         7.0
+## 3   virginica Sepal.Length         6.3
+## 4      setosa  Sepal.Width         3.5
+## 5  versicolor  Sepal.Width         3.2
+## 6   virginica  Sepal.Width         3.3
+## 7      setosa Petal.Length         1.4
+## 8  versicolor Petal.Length         4.7
+## 9   virginica Petal.Length         6.0
+## 10     setosa  Petal.Width         0.2
+## 11 versicolor  Petal.Width         1.4
+## 12  virginica  Petal.Width         2.5
+</code></pre>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Reshaping Data (Adv-Cont)</h2>
+
+<p>By specifying the &quot;key&quot; columns:</p>
+
+<pre><code class="r">gather(mini_iris, key = flower_att, value = measurement, -Species)
+</code></pre>
+
+<pre><code>##       Species   flower_att measurement
+## 1      setosa Sepal.Length         5.1
+## 2  versicolor Sepal.Length         7.0
+## 3   virginica Sepal.Length         6.3
+## 4      setosa  Sepal.Width         3.5
+## 5  versicolor  Sepal.Width         3.2
+## 6   virginica  Sepal.Width         3.3
+## 7      setosa Petal.Length         1.4
+## 8  versicolor Petal.Length         4.7
+## 9   virginica Petal.Length         6.0
+## 10     setosa  Petal.Width         0.2
+## 11 versicolor  Petal.Width         1.4
+## 12  virginica  Petal.Width         2.5
+</code></pre>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Reshaping Data (Adv-Cont)</h2>
+
+<p>Usually the column names in a database or an excel sheet is uniformly labeled, such as the example provided:</p>
+
+<pre><code class="r">names(data_E)
+</code></pre>
+
+<pre><code>## [1] &quot;names&quot;          &quot;grades_Q1_2015&quot; &quot;grades_Q2_2015&quot; &quot;grades_Q3_2015&quot;
+## [5] &quot;grades_Q4_2015&quot; &quot;grades_Q1_2016&quot; &quot;grades_Q2_2016&quot; &quot;grades_Q3_2016&quot;
+## [9] &quot;grades_Q4_2016&quot;
+</code></pre>
+
+<p>After the gather step, we arrive at and we want to split the names to 3 different columns:</p>
+
+<pre><code class="r">data_E %&gt;%
+  gather(key = variable, value = score, 
+         -names) %&gt;% #notice the hypen sign
+  head(2)
+</code></pre>
+
+<pre><code>##   names       variable score
+## 1 amber grades_Q1_2015    60
+## 2 bryan grades_Q1_2015    80
+</code></pre>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Reshaping Data (Adv-Cont)</h2>
+
+<p>We can achieve this by the <u>&quot;separate&quot;</u> function: </p>
+
+<p>The way to use it is separate(col_name,new_col_names, separator)</p>
+
+<pre><code class="r">data_F &lt;- data_E %&gt;%
+  gather(key = variable, value = score, 
+         -names) %&gt;% #notice the hypen sign
+    separate(variable, c(&quot;grades&quot;,&quot;quarter&quot;,&quot;year&quot;), sep = &quot;_&quot;) 
+data_F %&gt;% head(2)
+</code></pre>
+
+<pre><code>##   names grades quarter year score
+## 1 amber grades      Q1 2015    60
+## 2 bryan grades      Q1 2015    80
+</code></pre>
+
+<p>you can type ?separate in your console to find out more! the opposite of this is unite. </p>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Reshaping Data (Adv-Cont)</h2>
+
+<p>Example <u>unite</u>:</p>
+
+<p>unite(new_col_name,col_to_merge(s),separator)</p>
+
+<pre><code class="r">data_G &lt;- data_F %&gt;% unite(variable,grades,quarter,year,sep=&quot;_&quot;) 
+data_G %&gt;% head(5)
+</code></pre>
+
+<pre><code>##   names       variable score
+## 1 amber grades_Q1_2015    60
+## 2 bryan grades_Q1_2015    80
+## 3 amber grades_Q2_2015    54
+## 4 bryan grades_Q2_2015    83
+## 5 amber grades_Q3_2015    90
+</code></pre>
+
+<p>you can type ?unite in your console to find out more! </p>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
+    <h2>Reshaping Data (Adv-Cont)</h2>
+
+<p>The opposite of gather is <u>spread</u>:
+gather(variable_column,value_column)</p>
+
+<pre><code class="r">data_G %&gt;% spread(key = variable, value = score)
+</code></pre>
+
+<pre><code>##   names grades_Q1_2015 grades_Q1_2016 grades_Q2_2015 grades_Q2_2016
+## 1 amber             60             60             54             58
+## 2 bryan             80             79             83             87
+##   grades_Q3_2015 grades_Q3_2016 grades_Q4_2015 grades_Q4_2016
+## 1             90             40             87             93
+## 2             74             85             76             81
+</code></pre>
+
+<p><br></p>
+
+<p><a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+</section>
+<section>
+   <section class='' data-state=''>
+    
+    <p>#End!</p>
+
+<p><br>
+<br>
+<br>
+<a href="#/3">Back To Contents</a></p>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+</section>
+    </div>
+  </div>
+</body>
+  <script src="libraries/frameworks/revealjs/lib/js/head.min.js"></script>
+  <script src="libraries/frameworks/revealjs/js/reveal.min.js"></script>
+  <script>
+  // Full list of configuration options available here:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: false,
+    theme: Reveal.getQueryHash().theme || 'night', 
+    transition: Reveal.getQueryHash().transition || 'default', 
+    dependencies: [
+    // Cross-browser shim that fully implements classList -
+    // https://github.com/eligrey/classList.js/
+      { src: 'libraries/frameworks/revealjs/lib/js/classList.js', condition: function() { return !document.body.classList;}},
+      // Zoom in and out with Alt+click
+      { src: 'libraries/frameworks/revealjs/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      // Speaker notes
+      { src: 'libraries/frameworks/revealjs/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+      // Remote control your reveal.js presentation using a touch device
+      //{ src: 'libraries/frameworks/revealjs/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+      ]
+  });
+  </script>  <!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+ 
+
+</html>
