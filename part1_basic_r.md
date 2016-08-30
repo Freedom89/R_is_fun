@@ -16,9 +16,10 @@ knit        : slidify::knit2slides
 ## R Prog. Part 1
 
 
-<img src = "./assets/img/GINSlogo.png" width = 400px>
-
+Done by: Low yi Xiang
 <br>
+
+[Linkedin Profile](https://www.linkedin.com/in/yi-xiang-low-b349137b)
 
 [Jump To Contents](#/3)
 
@@ -28,13 +29,6 @@ knit        : slidify::knit2slides
 
 .fragment <q> R is an open source langauge with multiple libraries avaliable. It is a widely used programming langauge for various purposes, such as data wrangling, visualization, modeling and even building this deck! </q>
 
-<br>
-
-.fragment RStudio and R 3.3.x have been risk-assessed for local computer usage including the packages that are available on CRAN
-
-<br>
-
-.fragment Some resources (including Shiny Server Pro etc) on how Merck uses R can be found here: https://share.merck.com/pages/viewpage.action?pageId=93356897
 
 --- &vertical
 

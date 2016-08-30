@@ -15,7 +15,11 @@ knit        : slidify::knit2slides
 
 ## R Prog. Part 2
 
-<img src = "./assets/img/GINSlogo.png" width = 400px>
+Done by: Low yi Xiang
+
+<br>
+
+[Linkedin Profile](https://www.linkedin.com/in/yi-xiang-low-b349137b)
 
 <br>
 
@@ -1996,7 +2000,7 @@ data_G %>% spread(key = variable, value = score)
 
 ---&vertical
 
-#End!
+# End!
 
 <br>
 <br>
