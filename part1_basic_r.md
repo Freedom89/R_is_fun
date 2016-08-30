@@ -15,6 +15,7 @@ knit        : slidify::knit2slides
 
 ## R Prog. Part 1
 
+<br>
 
 Done by: Low yi Xiang
 
@@ -31,6 +32,10 @@ Done by: Low yi Xiang
 ## The R programming
 
 .fragment <q> R is an open source langauge with multiple libraries avaliable. It is a widely used programming langauge for various purposes, such as data wrangling, visualization, modeling and even building this deck! </q>
+
+<br>
+
+.fragment <q> R also has rich libraries beyond data wrangling, it can build [dashboards](http://shiny.rstudio.com/gallery/), [rich interactive graphics](http://www.htmlwidgets.org/) or [slides](http://slidify.org/) such as the one you are looking at right now! </q>
 
 
 --- &vertical
