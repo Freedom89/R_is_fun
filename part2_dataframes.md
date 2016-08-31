@@ -17,7 +17,7 @@ knit        : slidify::knit2slides
 
 <br>
 
-Done by: Low yi Xiang
+Done by: Low Yi Xiang
 
 <br>
 
@@ -1450,8 +1450,6 @@ diamonds_df %>%
 
 ## Combine Datasets (Advance)
 
-[Back To Contents](#/3)
-
 There are two ways to join data set, either by joining, or binding. For joining data there is <u>left_join</u>, <u>right_join</u>, <u>inner_join</u>, <u>full_join</u>, <u>semi_join</u>, <u>anti_join</u>.
 
 Define the following variables:
@@ -1541,7 +1539,10 @@ data_A %>% inner_join(data_B, by = "names")
 
 <br>
 
+
 [Back To Contents](#/3)
+
+<br>
 
 ***
 
@@ -1689,6 +1690,7 @@ The following shows a "wide" format.
 [Back To Contents](#/3)
 
 ***
+
 ## Reshaping Data (Adv-Cont)
 
 The following shows a 'long' format:
@@ -1712,6 +1714,8 @@ More information can be found [here](https://en.wikipedia.org/wiki/Wide_and_narr
 <br>
 
 For examples, refer [here](http://www.theanalysisfactor.com/wide-and-long-data/)
+
+<br>
 
 [Back To Contents](#/3)
 

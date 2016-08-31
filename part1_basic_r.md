@@ -17,7 +17,7 @@ knit        : slidify::knit2slides
 
 <br>
 
-Done by: Low yi Xiang
+Done by: Low Yi Xiang
 
 <br>
 

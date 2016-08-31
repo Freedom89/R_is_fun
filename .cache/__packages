@@ -2,3 +2,4 @@ base
 dplyr
 tidyr
 ggplot2
+knitr
