@@ -8,6 +8,8 @@ hitheme     : dark      #
 revealjs    :
   theme: night
   center: "false"
+  transition: none
+
 widgets     : []            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft,selfcontained}
 knit        : slidify::knit2slides

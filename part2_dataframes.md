@@ -8,6 +8,7 @@ hitheme     : dark      #
 revealjs    :
   theme: night
   center: "false"
+  transition: none
 widgets     : []            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft,selfcontained}
 knit        : slidify::knit2slides
@@ -157,7 +158,7 @@ library(datasets);
 library(ggplot2)
 ```
 
----
+---&vertical
 
 ## Learning DataFrames
 
@@ -186,6 +187,12 @@ library(ggplot2)
 - [Summarizing](#/13)
 
 - [Grouped Operations](#/14)
+
+***
+
+## Learning DataFrames (Adv)
+
+<br>
 
 - [Combine Datasets (Advanced)](#/15)
 
@@ -1536,9 +1543,9 @@ data_A %>% inner_join(data_B, by = "names")
 ## 1 amber     84      F
 ## 2 bryan     93      M
 ```
+More in the next slide:
 
 <br>
-
 
 [Back To Contents](#/3)
 
