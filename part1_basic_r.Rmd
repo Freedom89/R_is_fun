@@ -37,7 +37,7 @@ Done by: Low Yi Xiang
 
 ## The R programming
 
-.fragment <q> R is an open source langauge with multiple libraries avaliable. It is a widely used programming langauge for various purposes, such as data wrangling, visualization, modeling and even building this deck! </q>
+.fragment <q> R is an open source langauge with multiple libraries available. It is a widely used programming langauge for various purposes, such as data wrangling, visualization, modeling and even building this deck! </q>
 
 <br>
 
@@ -224,7 +224,7 @@ animal <- "cat"
 print(animal == "cat")
 ```
 
-There are other functions (more on that later) and conditions symbol, such as <q>!=</q> (not equal), <q> >= </q> (greater than) as well as <q><=</q> (smaller than)
+There are other functions (more on that later) and conditions symbol, such as <q>!=</q> (not equal), <q> >= </q> (greater than or equals to) as well as <q><=</q> (smaller than or equal to)
 
 ##### Examples:
 
@@ -404,7 +404,7 @@ random_numbers*2  #multiply by 2
 random_numbers -1 #substract each element by 1 
 ```
 
-There is alot more functionality avaliable in vectors - but usually you will google them as you need them along the way. 
+There is alot more functionalities available in vectors - but usually you will google them as you need them along the way. 
 
 [Back To Contents](#/3)
 
@@ -522,7 +522,7 @@ Nevertheless, Lists are still very important and could be extremly useful as the
 
 <br>
 
-.fragment For those who are not familar, functions are essentially methods you can use to apply to variables and some output. 
+.fragment For those who are not familar, functions are essentially methods you can use to apply to variables and get the same output through same process(es). 
 
 <br>
 
@@ -570,7 +570,7 @@ In the earlier example, <q>function_example</q> is the function name, <q>x</q> i
 
 <br>
 
-Heres another (trivial) example, suppose we want to two numbers and multiply them together with a function:
+Heres another (trivial) example, suppose we have two numbers and multiply them together with a function:
 
 ```{r}
 multiply_two_numbers <- function(x,y){
@@ -707,11 +707,11 @@ summary_stats(c(1,2,3,4,5))
 
 <br>
 
-.fragment  <q>for</q> loops runs within a fixed set and perform some tasks for you. More examples will be shown later. 
+.fragment  <q>for</q> loops run within a fixed set and perform some tasks for you. More examples will be shown later. 
 
 <br>
 
-.fragment <q>while</q> loops runs until a certain condition is satisified. 
+.fragment <q>while</q> loops run until a certain condition is satisified. 
 
 [Back To Contents](#/3)
 
@@ -769,9 +769,27 @@ print(running_sum)
 
 ***
 
+## For Loops (Answers) 
+
+Answer: 
+
+```{r}
+numbers <- 1:100
+running_sum <- 0 
+for(i in numbers){
+  if(i %%3 ==0){
+      running_sum <- running_sum + i  #keeping track of the total sum.
+  }
+}
+print(running_sum)
+```
+
+***
+
+
 ## While Loops
 
-While loops is generally used when you want to achieve a task and is uncertain about the steps you need to take. The sturcture is as follows:
+While loops is generally used when you want to achieve a task and is uncertain about the steps you need to take. The structure is as follows:
 ```{r, eval = F}
 condition <- TRUE
 while(condition){ #notice the brackets
@@ -791,7 +809,7 @@ while(condition){
 }
 ```
 
-Becareful with while loops as you might encounter infinite loops - the loop will run forever since the condition will never be false! 
+Be careful with while loops as you might encounter infinite loops - the loop will run forever since the condition will never be false! 
 
 [Back To Contents](#/3)
 
@@ -849,7 +867,7 @@ print(i)
 
 <br>
 
-Bonus Challenge: how many numbers in total were used to achieve a sum exceeding 500 with numbers that are 
+Bonus Challenge: how many numbers in total were used to achieve a sum exceeding 500 with numbers that are divisible by 3. 
 
 [Back To Contents](#/3)
 
@@ -884,9 +902,9 @@ print(counter)
 
 ## Loops (cont)
 
-There are two additional functionality that are useful - <b><u> break </b></u> and <b><u> next </b></u>.
+There are two additional functionalities that are useful - <b><u> break </b></u> and <b><u> next </b></u>.
 
-The break commands basically stops the loops from running while the next command simply moves on to the next iteration of the loop. 
+The break command basically stops the loops from running while the next command simply moves on to the next iteration of the loop. 
 
 ##### "break" command
 ```{r}
@@ -910,11 +928,11 @@ for( i in 1:4){
 
 ## Installing packages
 
-R is a widely contributed by people all over the world, there are currently 8992 packagess avaliable on [CRAN](https://cran.r-project.org/) not accounting for other libraries on github. 
+R is a widely contributed by people all over the world, there are currently 8992 packagess available on [CRAN](https://cran.r-project.org/) not accounting for other libraries on github. 
 
 <br>
 
-To see the libraries avaliable by [date](https://cran.r-project.org/web/packages/available_packages_by_date.html) or by [name](https://cran.r-project.org/web/packages/available_packages_by_name.html).
+To see the libraries available by [date](https://cran.r-project.org/web/packages/available_packages_by_date.html) or by [name](https://cran.r-project.org/web/packages/available_packages_by_name.html).
 
 <br>
 

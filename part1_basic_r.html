@@ -39,7 +39,7 @@
 </section>
 <section class='class' data-state='' id='id'>
   <h2>The R programming</h2>
-  <p class='fragment'><q> R is an open source langauge with multiple libraries avaliable. It is a widely used programming langauge for various purposes, such as data wrangling, visualization, modeling and even building this deck! </q></p>
+  <p class='fragment'><q> R is an open source langauge with multiple libraries available. It is a widely used programming langauge for various purposes, such as data wrangling, visualization, modeling and even building this deck! </q></p>
 
 <p><br></p>
 
@@ -240,7 +240,7 @@ print(animal == &quot;cat&quot;)
 <pre><code>## [1] TRUE
 </code></pre>
 
-<p>There are other functions (more on that later) and conditions symbol, such as <q>!=</q> (not equal), <q> &gt;= </q> (greater than) as well as <q>&lt;=</q> (smaller than)</p>
+<p>There are other functions (more on that later) and conditions symbol, such as <q>!=</q> (not equal), <q> &gt;= </q> (greater than or equals to) as well as <q>&lt;=</q> (smaller than or equal to)</p>
 
 <h5>Examples:</h5>
 
@@ -453,7 +453,7 @@ random_numbers*2  #multiply by 2
 random_numbers -1 #substract each element by 1 
 </code></pre>
 
-<p>There is alot more functionality avaliable in vectors - but usually you will google them as you need them along the way. </p>
+<p>There is alot more functionalities available in vectors - but usually you will google them as you need them along the way. </p>
 
 <p><a href="#/3">Back To Contents</a></p>
 
@@ -628,7 +628,7 @@ new_list2[[&quot;first_A&quot;]]
 
 <p><br></p>
 
-<p class='fragment'>For those who are not familar, functions are essentially methods you can use to apply to variables and some output. </p>
+<p class='fragment'>For those who are not familar, functions are essentially methods you can use to apply to variables and get the same output through same process(es). </p>
 
 <p><br></p>
 
@@ -682,7 +682,7 @@ x &lt;- function_example(x)
 
 <p><br></p>
 
-<p>Heres another (trivial) example, suppose we want to two numbers and multiply them together with a function:</p>
+<p>Heres another (trivial) example, suppose we have two numbers and multiply them together with a function:</p>
 
 <pre><code class="r">multiply_two_numbers &lt;- function(x,y){
   new_number &lt;- x*y
@@ -852,11 +852,11 @@ summary_stats(c(1,2,3,4,5))
 
 <p><br></p>
 
-<p class='fragment '><q>for</q> loops runs within a fixed set and perform some tasks for you. More examples will be shown later. </p>
+<p class='fragment '><q>for</q> loops run within a fixed set and perform some tasks for you. More examples will be shown later. </p>
 
 <p><br></p>
 
-<p class='fragment'><q>while</q> loops runs until a certain condition is satisified. </p>
+<p class='fragment'><q>while</q> loops run until a certain condition is satisified. </p>
 
 <p><a href="#/3">Back To Contents</a></p>
 
@@ -928,9 +928,31 @@ print(running_sum)
     </aside>
    </section>
    <section class='' data-state=''>
+    <h2>For Loops (Answers)</h2>
+
+<p>Answer: </p>
+
+<pre><code class="r">numbers &lt;- 1:100
+running_sum &lt;- 0 
+for(i in numbers){
+  if(i %%3 ==0){
+      running_sum &lt;- running_sum + i  #keeping track of the total sum.
+  }
+}
+print(running_sum)
+</code></pre>
+
+<pre><code>## [1] 1683
+</code></pre>
+
+    <aside class='notes'>
+      
+    </aside>
+   </section>
+   <section class='' data-state=''>
     <h2>While Loops</h2>
 
-<p>While loops is generally used when you want to achieve a task and is uncertain about the steps you need to take. The sturcture is as follows:</p>
+<p>While loops is generally used when you want to achieve a task and is uncertain about the steps you need to take. The structure is as follows:</p>
 
 <pre><code class="r">condition &lt;- TRUE
 while(condition){ #notice the brackets
@@ -954,7 +976,7 @@ while(condition){
 ## [1] 2
 </code></pre>
 
-<p>Becareful with while loops as you might encounter infinite loops - the loop will run forever since the condition will never be false! </p>
+<p>Be careful with while loops as you might encounter infinite loops - the loop will run forever since the condition will never be false! </p>
 
 <p><a href="#/3">Back To Contents</a></p>
 
@@ -1019,7 +1041,7 @@ print(i)
 
 <p><br></p>
 
-<p>Bonus Challenge: how many numbers in total were used to achieve a sum exceeding 500 with numbers that are </p>
+<p>Bonus Challenge: how many numbers in total were used to achieve a sum exceeding 500 with numbers that are divisible by 3. </p>
 
 <p><a href="#/3">Back To Contents</a></p>
 
@@ -1062,9 +1084,9 @@ print(counter)
    <section class='' data-state=''>
     <h2>Loops (cont)</h2>
 
-<p>There are two additional functionality that are useful - <b><u> break </b></u> and <b><u> next </b></u>.</p>
+<p>There are two additional functionalities that are useful - <b><u> break </b></u> and <b><u> next </b></u>.</p>
 
-<p>The break commands basically stops the loops from running while the next command simply moves on to the next iteration of the loop. </p>
+<p>The break command basically stops the loops from running while the next command simply moves on to the next iteration of the loop. </p>
 
 <h5>&quot;break&quot; command</h5>
 
@@ -1101,11 +1123,11 @@ print(counter)
 <section>
    <section class='' data-state=''>
     <h2>Installing packages</h2>
-    <p>R is a widely contributed by people all over the world, there are currently 8992 packagess avaliable on <a href="https://cran.r-project.org/">CRAN</a> not accounting for other libraries on github. </p>
+    <p>R is a widely contributed by people all over the world, there are currently 8992 packagess available on <a href="https://cran.r-project.org/">CRAN</a> not accounting for other libraries on github. </p>
 
 <p><br></p>
 
-<p>To see the libraries avaliable by <a href="https://cran.r-project.org/web/packages/available_packages_by_date.html">date</a> or by <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html">name</a>.</p>
+<p>To see the libraries available by <a href="https://cran.r-project.org/web/packages/available_packages_by_date.html">date</a> or by <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html">name</a>.</p>
 
 <p><br></p>
 
