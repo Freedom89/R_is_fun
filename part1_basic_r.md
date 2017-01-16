@@ -37,7 +37,7 @@ Done by: Low Yi Xiang
 
 ## The R programming
 
-.fragment <q> R is an open source langauge with multiple libraries available. It is a widely used programming langauge for various purposes, such as data wrangling, visualization, modeling and even building this deck! </q>
+.fragment <q> R is an open source language with multiple libraries available. It is a widely used programming language for various purposes, such as data wrangling, visualization, modeling and even building this deck! </q>
 
 <br>
 
